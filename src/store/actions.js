@@ -3,8 +3,9 @@ import {GET_USER_INFORMATION} from '../common/constants'
 
 const actions = {
   async [GET_USER_INFORMATION] (context) {
-    let data = await api.getLoginUserInformation()
-    context.commit(GET_USER_INFORMATION, data)
+    api.getLoginUserInformation().then(response => {
+      context.commit(GET_USER_INFORMATION, response)
+    })
   }
 }
 export default actions

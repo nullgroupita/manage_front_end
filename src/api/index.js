@@ -76,6 +76,15 @@ async function addParkingLot (params) {
   }
 }
 
+async function getParkingLotsByManagerId (parmas) {
+  try {
+    const response = await axios.get(`/employees/${parmas}/parking-lots`)
+    return response.data.data || []
+  } catch (e) {
+    console.log(e)
+  }
+}
+
 async function updateParkingLot (params) {
   try {
     const response = await axios.patch(`/employees/${store.state.user.id}/parking-lots`, params)
@@ -92,8 +101,10 @@ async function updateParkingLot (params) {
 
 const api = {
   login,
+  getLoginUserInformation,
+  getParkingLotsByManagerId,
   addParkingLot,
-  updateParkingLot,
-  getLoginUserInformation
+  updateParkingLot
 }
+
 export default api

@@ -4,16 +4,16 @@
     <el-col :span = 6>
       <el-form ref="form" label-width="80px">
         <el-form-item label="名称：">
-          {{name}}
+          {{parkingLot.name}}
         </el-form-item>
         <el-form-item label="位置：">
-          {{position}}
+          {{parkingLot.position}}
         </el-form-item>
         <el-form-item label="容量：">
-          <el-input v-model="capacity"></el-input>
+          <el-input v-model="parkingLot.capacity"></el-input>
         </el-form-item>
         <el-button type="primary" @click="onSubmit">提交</el-button>
-        <el-button>取消</el-button>
+        <el-button type="info" @click="onCancel">取消</el-button>
       </el-form>
     </el-col>
   </el-row>
@@ -25,19 +25,23 @@ export default {
   name: 'UpdateParkingLot',
   data () {
     return {
-      name: '1',
-      position: '珠海市香洲区',
-      capacity: ''
+      parkingLot: {}
     }
   },
   methods: {
-    onSubmit () {
-      let parkingLot = {
-        uid: 1,
-        capacity: this.capacity
+    async onSubmit () {
+      let response = await api.updateParkingLot(this.parkingLot)
+      if (response.retCode === 200) {
+        this.$message.success('修改成功')
+        this.$router.push('parking-lots')
       }
-      api.updateParkingLot(parkingLot)
+    },
+    onCancel () {
+      this.$router.push('parking-lots')
     }
+  },
+  mounted () {
+    this.parkingLot = this.$route.params.data
   }
 }
 </script>

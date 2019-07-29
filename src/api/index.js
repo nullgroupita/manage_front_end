@@ -3,7 +3,7 @@ import cookies from 'vue-cookies'
 import router from '../router'
 import {Message} from 'element-ui'
 import md5 from 'md5'
-import store from '../store'
+import {USER_INFO} from '../common/constants'
 
 axios.defaults.baseURL = '/api'
 
@@ -64,21 +64,17 @@ async function getLoginUserInformation () {
 
 async function addParkingLot (params) {
   try {
-    const response = await axios.post(`/employees/${store.state.user.id}/parking-lots`, params)
-    if (response.data.retCode === 200) {
-      // set token
-      cookies.set('token', response.data.data)
-      return true
-    }
-    return false
+    let userId = cookies.get(USER_INFO).id
+    let response = await axios.post(`/employees/${userId}/parking-lots`, params)
+    return response.data
   } catch (e) {
     console.log(e)
   }
 }
 
-async function getParkingLotsByManagerId (parmas) {
+async function getParkingLotsByManagerId (id) {
   try {
-    const response = await axios.get(`/employees/${parmas}/parking-lots`)
+    const response = await axios.get(`/employees/${id}/parking-lots`)
     return response.data.data || []
   } catch (e) {
     console.log(e)
@@ -87,13 +83,19 @@ async function getParkingLotsByManagerId (parmas) {
 
 async function updateParkingLot (params) {
   try {
-    const response = await axios.patch(`/employees/${store.state.user.id}/parking-lots`, params)
-    if (response.data.retCode === 200) {
-      // set token
-      cookies.set('token', response.data.data)
-      return true
-    }
-    return false
+    let userId = cookies.get(USER_INFO).id
+    const response = await axios.patch(`/employees/${userId}/parking-lots`, params)
+    return response.data
+  } catch (e) {
+    console.log(e)
+  }
+}
+
+async function getParkingLotsForQuery (params) {
+  try {
+    let userId = cookies.get(USER_INFO).id
+    const response = await axios.post(`/employees/${userId}/parking-lots`, params)
+    return response.data.data
   } catch (e) {
     console.log(e)
   }
@@ -104,7 +106,8 @@ const api = {
   getLoginUserInformation,
   getParkingLotsByManagerId,
   addParkingLot,
-  updateParkingLot
+  updateParkingLot,
+  getParkingLotsForQuery
 }
 
 export default api

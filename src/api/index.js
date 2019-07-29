@@ -61,8 +61,19 @@ async function getLoginUserInformation () {
   }
 }
 
+async function getParkingLotsByManagerId (parmas) {
+  try {
+    const response = await axios.get(`/employees/${parmas}/parking-lots`)
+    return response.data.data || []
+  } catch (e) {
+    console.log(e)
+  }
+}
+
 const api = {
   login,
-  getLoginUserInformation
+  getLoginUserInformation,
+  getParkingLotsByManagerId
 }
+
 export default api

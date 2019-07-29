@@ -1,11 +1,17 @@
 <template>
-  <el-container>
-    <el-header><Header></Header></el-header>
+  <el-container  style="background-color: #dddfe6">
+    <el-header class="header">
+      <Header class="header-content"></Header>
+    </el-header>
     <el-container>
-      <el-aside width="200px"><Menu></Menu></el-aside>
-      <el-container>
-        <el-main><router-view /></el-main>
-        <el-footer>Footer</el-footer>
+      <el-aside width="230px" class="aside">
+        <Menu class="menu-content"></Menu>
+      </el-aside>
+      <el-container class="main">
+        <el-main class="main-content">
+          <ContentTitle></ContentTitle>
+          <router-view />
+        </el-main>
       </el-container>
     </el-container>
   </el-container>
@@ -56,13 +62,13 @@ export default {
   .header-content {
     background-color: #f4f5f9;
     margin: 10px;
-    height: 80px;
+    height: 50px;
   }
 
   .aside {
     color: #333;
     text-align: center;
-    height: 870px;
+    min-height: 700px;
   }
 
   .menu-content {

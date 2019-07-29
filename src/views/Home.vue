@@ -1,5 +1,5 @@
 <template>
-  <el-container  style="background-color: #dddfe6">
+  <el-container style="background-color: #dddfe6">
     <el-header class="header">
       <Header class="header-content"></Header>
     </el-header>
@@ -57,13 +57,8 @@ export default {
   .header {
     text-align: center;
     height: 100px;
+    color: #FFFFFF;
   }
-
-  /*.header-content {*/
-  /*  background-color: #f4f5f9;*/
-  /*  margin: 10px;*/
-  /*  height: 50px;*/
-  /*}*/
 
   .aside {
     color: #333;
@@ -87,5 +82,9 @@ export default {
     margin: 10px;
     background-color: #f4f5f9;
     height: 850px;
+  }
+
+  >>> .el-header {
+    background-color: #FFFFFF;
   }
 </style>

@@ -1,24 +1,34 @@
 <template>
-  <el-row style="background-color: #dddfe6">
-    <el-row class="header">
-      <el-row class="header-content">
-        <Header></Header>
-      </el-row>
-    </el-row>
-    <el-row>
-      <el-col :span="3" class="aside">
-        <el-row class="menu-content">
-          <Menu></Menu>
-        </el-row>
-      </el-col>
-      <el-col :span="21" class="main">
-        <el-row class="main-content">
-          <ContentTitle></ContentTitle>
-          <router-view />
-        </el-row>
-      </el-col>
-    </el-row>
-  </el-row>
+  <el-container>
+    <el-header><Header></Header></el-header>
+    <el-container>
+      <el-aside width="200px"><Menu></Menu></el-aside>
+      <el-container>
+        <el-main><router-view /></el-main>
+        <el-footer>Footer</el-footer>
+      </el-container>
+    </el-container>
+  </el-container>
+<!--  <el-row style="background-color: #dddfe6">-->
+<!--    <el-row class="header">-->
+<!--      <el-row class="header-content">-->
+<!--        <Header></Header>-->
+<!--      </el-row>-->
+<!--    </el-row>-->
+<!--    <el-row>-->
+<!--      <el-col :span="3" class="aside">-->
+<!--        <el-row class="menu-content">-->
+<!--          <Menu></Menu>-->
+<!--        </el-row>-->
+<!--      </el-col>-->
+<!--      <el-col :span="21" class="main">-->
+<!--        <el-row class="main-content">-->
+<!--          <ContentTitle></ContentTitle>-->
+<!--          <router-view />-->
+<!--        </el-row>-->
+<!--      </el-col>-->
+<!--    </el-row>-->
+<!--  </el-row>-->
 </template>
 
 <script>

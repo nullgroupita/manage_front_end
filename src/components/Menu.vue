@@ -51,6 +51,7 @@ export default {
   methods: {
     selectMenu (index) {
       this.$store.commit(CHANGE_ACTIVE_MENU, index)
+      this.$router.push(index)
     }
   },
   mounted () {

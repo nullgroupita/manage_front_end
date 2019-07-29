@@ -3,6 +3,7 @@ import cookies from 'vue-cookies'
 import router from '../router'
 import {Message} from 'element-ui'
 import md5 from 'md5'
+import store from '../store'
 
 axios.defaults.baseURL = '/api'
 
@@ -61,6 +62,20 @@ async function getLoginUserInformation () {
   }
 }
 
+async function addParkingLot (params) {
+  try {
+    const response = await axios.post(`/employees/${store.state.user.id}/parking-lots`, params)
+    if (response.data.retCode === 200) {
+      // set token
+      cookies.set('token', response.data.data)
+      return true
+    }
+    return false
+  } catch (e) {
+    console.log(e)
+  }
+}
+
 async function getParkingLotsByManagerId (parmas) {
   try {
     const response = await axios.get(`/employees/${parmas}/parking-lots`)
@@ -70,10 +85,26 @@ async function getParkingLotsByManagerId (parmas) {
   }
 }
 
+async function updateParkingLot (params) {
+  try {
+    const response = await axios.patch(`/employees/${store.state.user.id}/parking-lots`, params)
+    if (response.data.retCode === 200) {
+      // set token
+      cookies.set('token', response.data.data)
+      return true
+    }
+    return false
+  } catch (e) {
+    console.log(e)
+  }
+}
+
 const api = {
   login,
   getLoginUserInformation,
-  getParkingLotsByManagerId
+  getParkingLotsByManagerId,
+  addParkingLot,
+  updateParkingLot
 }
 
 export default api

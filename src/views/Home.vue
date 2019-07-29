@@ -1,7 +1,9 @@
 <template>
   <el-row style="background-color: #dddfe6">
     <el-row class="header">
-      <el-row class="header-content">header</el-row>
+      <el-row class="header-content">
+        <Header></Header>
+      </el-row>
     </el-row>
     <el-row>
       <el-col :span="3" class="aside">
@@ -21,10 +23,11 @@
 
 <script>
 import Menu from '../components/Menu'
+import Header from '../components/Header'
 import ContentTitle from '../components/ContentTitle'
 export default {
   components: {
-    Menu, ContentTitle
+    Menu, Header, ContentTitle
   },
   data () {
     return {

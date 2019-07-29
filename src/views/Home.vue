@@ -11,7 +11,8 @@
       </el-col>
       <el-col :span="21" class="main">
         <el-row class="main-content">
-          Main
+          <ContentTitle></ContentTitle>
+          <router-view />
         </el-row>
       </el-col>
     </el-row>
@@ -20,9 +21,10 @@
 
 <script>
 import Menu from '../components/Menu'
+import ContentTitle from '../components/ContentTitle'
 export default {
   components: {
-    Menu
+    Menu, ContentTitle
   },
   data () {
     return {

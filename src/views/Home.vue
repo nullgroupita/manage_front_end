@@ -59,11 +59,11 @@ export default {
     height: 100px;
   }
 
-  .header-content {
-    background-color: #f4f5f9;
-    margin: 10px;
-    height: 50px;
-  }
+  /*.header-content {*/
+  /*  background-color: #f4f5f9;*/
+  /*  margin: 10px;*/
+  /*  height: 50px;*/
+  /*}*/
 
   .aside {
     color: #333;

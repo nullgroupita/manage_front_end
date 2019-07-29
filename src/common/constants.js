@@ -52,3 +52,5 @@ export const MENU_LIST = [
 ]
 
 export const CHANGE_ACTIVE_MENU = 'change_active_menu'
+
+export const GET_USER_INFORMATION = 'get_user_information'

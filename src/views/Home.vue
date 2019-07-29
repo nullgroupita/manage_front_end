@@ -25,14 +25,13 @@
 import Menu from '../components/Menu'
 import Header from '../components/Header'
 import ContentTitle from '../components/ContentTitle'
+import {GET_USER_INFORMATION} from '../common/constants'
 export default {
   components: {
     Menu, Header, ContentTitle
   },
-  data () {
-    return {
-      msg: 'Welcome to Your Vue.js App'
-    }
+  mounted () {
+    this.$store.dispatch(GET_USER_INFORMATION)
   }
 }
 </script>

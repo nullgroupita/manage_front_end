@@ -33,9 +33,17 @@ export default {
     }
   },
   methods: {
-    onSubmit () {
-      console.log('submit!')
-      api.addParkingLot(this.form)
+    async onSubmit () {
+      let response = await api.addParkingLot(this.form)
+      console.log('add on page', response)
+      if (response.retCode === 200) {
+        this.$message.success('添加成功')
+        this.form = {
+          name: '',
+          position: '',
+          capacity: ''
+        }
+      }
     }
   }
 }

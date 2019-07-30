@@ -3,7 +3,7 @@
     <el-row class="nav-bar">
       <el-col :span="22" style="margin-top: 5px; font-weight: bold">用户列表</el-col>
       <el-col :span="2">
-        <el-button type="primary" size="small" @click="addParkingLot" style="width: 90%">新增</el-button>
+        <el-button type="primary" size="small" style="width: 90%">新增</el-button>
       </el-col>
     </el-row>
     <el-row>

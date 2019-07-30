@@ -1,6 +1,6 @@
 <template>
   <el-row>
-    <el-menu default-active="employee-list" class="el-menu-vertical-demo" @select="selectMenu">
+    <el-menu :default-active="activeMenu" class="el-menu-vertical-demo" @select="selectMenu">
 <!--  @open="handleOpen" @close="handleClose"     :router="true"-->
       <el-submenu index="#" :collapse="true">
         <template slot="title">
@@ -48,6 +48,11 @@
 import {CHANGE_ACTIVE_MENU} from '../common/constants'
 
 export default {
+  data () {
+    return {
+      activeMenu: 'employee-list'
+    }
+  },
   methods: {
     selectMenu (index) {
       this.$store.commit(CHANGE_ACTIVE_MENU, index)

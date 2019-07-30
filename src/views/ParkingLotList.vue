@@ -28,7 +28,7 @@
       </el-col>
     </el-row>
     <el-row>
-      <el-table :data="parkingLots" style="width: 100%" stripe max-height="400">
+      <el-table :data="parkingLots" style="width: 100%" stripe max-height="350">
         <el-table-column label="序号" type="index" width="50"></el-table-column>
         <el-table-column label="名称" sortable prop="name" align="center">
           <template slot-scope="scope">
@@ -54,7 +54,7 @@
       </el-table>
       <el-pagination class="table-nav" @size-change="handleSizeChange" @current-change="handleCurrentChange"
                      :current-page="pageable.page" background
-                     :page-sizes="[20,40, 100, 200, 500]" :page-size="pageable.pageSize"
+                     :page-sizes="[10,20, 100, 200, 500]" :page-size="pageable.pageSize"
                      layout="total, sizes, prev, pager, next, jumper" :total="totalCount">
       </el-pagination>
     </el-row>
@@ -74,19 +74,19 @@ export default {
       searchForm: {
         name: '',
         position: '',
-        pageSize: 20,
+        pageSize: 10,
         page: 1
       },
       pageable: {
         page: 1,
-        pageSize: 20
+        pageSize: 10
       },
       totalCount: 0
     }
   },
   methods: {
     async getParkingLots () {
-      this.parkingLots = await api.getParkingLotsByManagerId(this.managerId)
+      this.parkingLots = await api.getParkingLotsByManagerId(this.managerId, this.searchForm)
       this.totalCount = this.parkingLots.length
     },
     freezeParkingLot () {
@@ -100,16 +100,17 @@ export default {
     },
     async query () {
       console.log('查询')
-      this.parkingLots = await api.getParkingLotsForQuery(this.searchForm)
-      this.totalCount = this.parkingLots.length > 0 ? this.parkingLots.length : 0
+      this.getParkingLots()
+      // this.parkingLots = await api.getParkingLotsForQuery(this.searchForm)
+      // this.totalCount = this.parkingLots.length > 0 ? this.parkingLots.length : 0
     },
     handleSizeChange (val) {
       this.searchForm.pageSize = val
-      this.query()
+      this.getParkingLots()
     },
     handleCurrentChange (val) {
       this.searchForm.page = val
-      this.query()
+      this.getParkingLots()
     }
   },
   mounted () {
@@ -136,7 +137,7 @@ export default {
 
   .table-nav {
     position: fixed;
-    bottom: 5px;
+    bottom: 45px;
   }
 
 </style>

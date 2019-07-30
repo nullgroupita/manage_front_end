@@ -72,9 +72,10 @@ async function addParkingLot (params) {
   }
 }
 
-async function getParkingLotsByManagerId (id) {
+async function getParkingLotsByManagerId (id, params) {
   try {
-    const response = await axios.get(`/employees/${id}/parking-lots`)
+    const response = await axios.get(`/employees/${id}/parking-lots?page=${params.page}&pageSize=${params.pageSize}&name=${params.name}&position=${params.position}`)
+    console.log('get', response)
     return response.data.data || []
   } catch (e) {
     console.log(e)
@@ -94,7 +95,7 @@ async function updateParkingLot (params) {
 async function getParkingLotsForQuery (params) {
   try {
     let userId = cookies.get(USER_INFO).id
-    const response = await axios.post(`/employees/${userId}/parking-lots`, params)
+    const response = await axios.get(`/employees/${userId}/parking-lots`, params)
     return response.data.data
   } catch (e) {
     console.log(e)

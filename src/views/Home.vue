@@ -69,7 +69,7 @@ export default {
   .menu-content {
     margin: 10px;
     background-color: #f4f5f9;
-    height: 850px;
+    min-height: 850px;
   }
 
   .main {

@@ -13,14 +13,15 @@
           <el-input v-model="form.capacity"></el-input>
         </el-form-item>
         <el-button type="primary" @click="onSubmit">提交</el-button>
-        <el-button>取消</el-button>
+        <el-button @click="onCancel">取消</el-button>
       </el-form>
     </el-col>
   </el-row>
 </template>
 
 <script>
-import api from '../api/index'
+import api from '../api'
+import {CHANGE_ACTIVE_MENU} from '../common/constants'
 export default {
   name: 'AddParkingLot',
   data () {
@@ -44,7 +45,13 @@ export default {
           capacity: ''
         }
       }
+    },
+    onCancel () {
+      this.$router.push('parking-lots')
     }
+  },
+  mounted () {
+    this.$store.commit(CHANGE_ACTIVE_MENU, this.$route.path.substr(1))
   }
 }
 </script>

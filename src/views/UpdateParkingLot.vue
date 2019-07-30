@@ -20,7 +20,8 @@
 </template>
 
 <script>
-import api from '../api/index'
+import api from '../api'
+import {CHANGE_ACTIVE_MENU} from '../common/constants'
 export default {
   name: 'UpdateParkingLot',
   data () {
@@ -42,6 +43,7 @@ export default {
   },
   mounted () {
     this.parkingLot = this.$route.params.data
+    this.$store.commit(CHANGE_ACTIVE_MENU, this.$route.path.substr(1))
   }
 }
 </script>

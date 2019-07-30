@@ -102,13 +102,23 @@ async function getParkingLotsForQuery (params) {
   }
 }
 
+async function getEmployees () {
+  try {
+    const response = await axios.get(`/employees`)
+    return response.data.data
+  } catch (e) {
+    console.log(e)
+  }
+}
+
 const api = {
   login,
   getLoginUserInformation,
   getParkingLotsByManagerId,
   addParkingLot,
   updateParkingLot,
-  getParkingLotsForQuery
+  getParkingLotsForQuery,
+  getEmployees
 }
 
 export default api

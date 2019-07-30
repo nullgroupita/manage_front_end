@@ -45,7 +45,7 @@
       </el-table>
       <el-pagination class="table-nav" @size-change="handleSizeChange" @current-change="handleCurrentChange"
                      :current-page="pageable.page" background
-                     :page-sizes="[2,20, 100, 200, 500]" :page-size="pageable.pageSize"
+                     :page-sizes="[10,20, 100, 200, 500]" :page-size="pageable.pageSize"
                      layout="total, sizes, prev, pager, next, jumper" :total="totalCount">
       </el-pagination>
     </el-row>
@@ -53,7 +53,7 @@
 </template>
 
 <script>
-import api from '../api/index'
+import api from '../api'
 import cookies from 'vue-cookies'
 import {CHANGE_ACTIVE_MENU, IN_ACTIVE, USER_INFO} from '../common/constants'
 
@@ -71,7 +71,7 @@ export default {
       },
       pageable: {
         page: 1,
-        pageSize: 2
+        pageSize: 10
       },
       totalCount: 0,
       search: ''

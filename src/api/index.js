@@ -101,13 +101,59 @@ async function getParkingLotsForQuery (params) {
   }
 }
 
+async function assignOrderToClerk (clerkId, params) {
+  try {
+    const response = await axios.patch(`/employees/${clerkId}/parking-lots`, params)
+    return response.data
+  } catch (e) {
+    console.log(e)
+  }
+}
+
+async function getParkingLotByClerk (clerkId) {
+  try {
+    const response = await axios.get(`/employees/${clerkId}/parking-lots`)
+    return response.data
+    // return response.data
+  } catch (e) {
+    console.log(e)
+  }
+}
+
+async function getAllOrders (managerId) {
+  try {
+    const response = await axios.get(`/employees/${managerId}/orders`)
+    console.log(response.data)
+    return response.data
+    // console.log(response.data)
+  } catch (e) {
+    console.log(e)
+  }
+}
+
+async function getUnReceiptOrders (managerId) {
+  try {
+    const response = await axios.get(`/orders`)
+    console.log(12334)
+    console.log(response.data)
+    return response.data.data
+    // console.log(response.data)
+  } catch (e) {
+    console.log(e)
+  }
+}
+
 const api = {
   login,
   getLoginUserInformation,
   getParkingLotsByManagerId,
   addParkingLot,
   updateParkingLot,
-  getParkingLotsForQuery
+  getParkingLotsForQuery,
+  assignOrderToClerk,
+  getParkingLotByClerk,
+  getAllOrders,
+  getUnReceiptOrders
 }
 
 export default api

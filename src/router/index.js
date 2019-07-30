@@ -5,6 +5,7 @@ import Login from '../views/Login'
 import ParkingLotList from '../views/ParkingLotList'
 import UpdateParkingLot from '../components/UpdateParkingLot'
 import AddParkingLot from '../components/AddParkingLot'
+import OrderManagement from '../views/OrderManagement'
 
 Vue.use(Router)
 
@@ -34,6 +35,11 @@ export default new Router({
           path: '/update-parking-lot',
           name: 'updateParkingLot',
           component: UpdateParkingLot
+        },
+        {
+          path: '/orders-maintenance',
+          name: 'manageOrder',
+          component: OrderManagement
         }
       ]
     }

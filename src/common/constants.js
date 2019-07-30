@@ -56,3 +56,5 @@ export const CHANGE_ACTIVE_MENU = 'change_active_menu'
 export const GET_USER_INFORMATION = 'get_user_information'
 
 export const USER_INFO = 'userInfo'
+
+export const GET_ALL_ORDERS = 'get_all_orders'

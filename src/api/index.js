@@ -75,7 +75,6 @@ async function addParkingLot (params) {
 async function getParkingLotsByManagerId (id, params) {
   try {
     const response = await axios.get(`/employees/${id}/parking-lots?page=${params.page}&pageSize=${params.pageSize}&name=${params.name}&position=${params.position}`)
-    console.log('get', response)
     return response.data.data || []
   } catch (e) {
     console.log(e)

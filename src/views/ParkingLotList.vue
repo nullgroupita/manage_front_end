@@ -86,8 +86,9 @@ export default {
   },
   methods: {
     async getParkingLots () {
-      this.parkingLots = await api.getParkingLotsByManagerId(this.managerId, this.searchForm)
-      this.totalCount = this.parkingLots.length
+      let response = await api.getParkingLotsByManagerId(this.managerId, this.searchForm)
+      this.parkingLots = response.pageContent
+      this.totalCount = response.total
     },
     freezeParkingLot () {
       this.$message.info('冻结')
@@ -99,10 +100,7 @@ export default {
       this.$router.push('add-parking-lot')
     },
     async query () {
-      console.log('查询')
       this.getParkingLots()
-      // this.parkingLots = await api.getParkingLotsForQuery(this.searchForm)
-      // this.totalCount = this.parkingLots.length > 0 ? this.parkingLots.length : 0
     },
     handleSizeChange (val) {
       this.searchForm.pageSize = val

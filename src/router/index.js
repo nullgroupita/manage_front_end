@@ -5,6 +5,7 @@ import Login from '../views/Login'
 import ParkingLotList from '../components/ParkingLotList'
 import UpdateParkingLot from '../components/UpdateParkingLot'
 import AddParkingLot from '../components/AddParkingLot'
+import ParkingLotsStatus from '../components/ParkingLotsStatus'
 
 Vue.use(Router)
 
@@ -34,6 +35,11 @@ export default new Router({
           path: '/update-parking-lot',
           name: 'updateParkingLot',
           component: UpdateParkingLot
+        },
+        {
+          path: '/parking-lots-status',
+          name: '/parking-lots-status',
+          component: ParkingLotsStatus
         }
       ]
     }

@@ -1,5 +1,5 @@
 <template>
-  <el-row>
+  <div>
     <el-menu :default-active="activeMenu" class="el-menu-vertical-demo" @select="selectMenu">
       <el-menu-item index="employee-list">
         <span class="icon-margin"><img src="../assets/img/employees.svg" class="menu-icon"/></span>
@@ -26,7 +26,7 @@
         <span slot="title">&nbsp;&nbsp;客户管理</span>
       </el-menu-item>
     </el-menu>
-  </el-row>
+  </div>
 </template>
 
 <script>

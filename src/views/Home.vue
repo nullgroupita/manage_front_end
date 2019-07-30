@@ -1,5 +1,5 @@
 <template>
-  <el-container style="background-color: #dddfe6">
+  <el-container style="background-color: #dddfe6;height: 100%">
     <el-header class="header">
       <Header class="header-content"></Header>
     </el-header>
@@ -63,25 +63,28 @@ export default {
   .aside {
     color: #333;
     text-align: center;
-    min-height: 700px;
+    display: block;
+    position: relative;
+    overflow-y: scroll;
   }
 
   .menu-content {
     margin: 10px;
     background-color: #f4f5f9;
-    min-height: 850px;
+    height: 100%;
+
   }
 
   .main {
     color: #333;
     text-align: center;
-    height: 870px;
+    height: 100%;
   }
 
   .main-content {
     margin: 10px;
     background-color: #f4f5f9;
-    height: 850px;
+    height: 100%;
   }
 
   >>> .el-header {

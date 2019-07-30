@@ -32,7 +32,10 @@
         </el-table-column>
         <el-table-column label="职位" align="center">
           <template slot-scope="scope">
-            <el-input v-if="editRowIndex===scope.row.id" v-model="scope.row.role"></el-input>
+            <el-select v-if="editRowIndex===scope.row.id" v-model="scope.row.role" placeholder="请选择">
+              <el-option label="停车职员" :value="0"></el-option>
+              <el-option label="停车场管理员" :value="1"></el-option>
+            </el-select>
             <span v-else>{{scope.row.role === 0 ? '停车职员' : '停车场管理员'}}</span>
           </template>
         </el-table-column>
@@ -48,8 +51,8 @@
           <template slot-scope="scope">
             <el-button v-if="scope.row.status === 0" type="danger" size="small" @click="freezeEmployee(scope.row)">冻结</el-button>
             <el-button v-else type="danger" size="small" @click="activeEmployee(scope.row)">解冻</el-button>
-            <el-button type="primary" size="small" v-if="editRowIndex.length === 0" @click="update(scope.row)">修改</el-button>
-            <el-button type="primary" size="small" v-else @click="saveUpdate(scope.row)">保存</el-button>
+            <el-button type="primary" size="small" v-if="editRowIndex === scope.row.id" @click="saveUpdate(scope.row)">保存</el-button>
+            <el-button type="primary" size="small" v-else @click="update(scope.row)">修改</el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -117,9 +120,9 @@ export default {
       this.editRowIndex = ''
       let response = await api.updateEmployee(row.id, row)
       if (response.retCode === 200) {
-        this.$message.success('修改成功')
+        this.$alert('修改成功')
       } else {
-        this.$message.error('修改失败')
+        this.$alert('修改失败')
         this.getEmployees()
       }
     },
@@ -127,9 +130,9 @@ export default {
       row.status = IN_ACTIVE_EMPLOYEE
       let response = await api.updateEmployee(row.id, row)
       if (response.retCode === 200) {
-        this.$message.success('修改成功')
+        this.$alert('冻结成功')
       } else {
-        this.$message.error('修改失败')
+        this.$alert('冻结失败，请重试')
         this.getEmployees()
       }
     },
@@ -137,9 +140,9 @@ export default {
       row.status = ACTIVE_EMPLOYEE
       let response = await api.updateEmployee(row.id, row)
       if (response.retCode === 200) {
-        this.$message.success('修改成功')
+        this.$alert('解冻成功')
       } else {
-        this.$message.error('修改失败')
+        this.$alert('解冻失败')
         this.getEmployees()
       }
     }

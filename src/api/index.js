@@ -115,7 +115,6 @@ async function getManagers () {
   try {
     const role = MANAGER_ROLE_CODE
     const response = await axios.get(`/employees?role=${role}`)
-    console.log('getManagers', response)
     return response.data.data
   } catch (e) {
     console.log(e)
@@ -124,6 +123,8 @@ async function getManagers () {
 
 async function createEmployee (params) {
   try {
+    let employee = JSON.parse(JSON.stringify(params))
+    employee.password = md5(employee.password)
     let response = await axios.post(`/employees`, params)
     return response.data
   } catch (e) {

@@ -95,15 +95,16 @@ export default {
     },
     onSave () {
       this.$refs['addForm'].validate(async (valid) => {
-        console.log(this.employee)
         if (valid) {
           if (this.employee.password !== this.confirmPassword) {
             this.$alert('两次密码不一致')
+            return false
           }
           let response = await api.createEmployee(this.employee)
           if (response.retCode === 200) {
             this.$message.success('新增成功')
             this.$refs['addForm'].resetFields()
+            this.$emit('showDialog', false)
             this.$router.push('employee-list')
           } else {
             this.$message.error('添加失败，请重试')
@@ -121,5 +122,7 @@ export default {
 </script>
 
 <style scoped>
-
+.demo-ruleForm {
+  text-align: left;
+}
 </style>

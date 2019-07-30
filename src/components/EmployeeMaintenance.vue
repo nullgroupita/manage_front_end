@@ -1,7 +1,14 @@
 <template>
   <el-row>
     <el-row class="nav-bar">
-      <el-col :span="22" style="margin-top: 5px; font-weight: bold">用户列表</el-col>
+      <el-col :span="2" style="margin-top: 5px; font-weight: bold">用户列表</el-col>
+      <el-col :span="18">
+        <el-select v-model="filterRole" placeholder="筛选器" class="role-selector" @change="filterByRole">
+          <el-option label="所有类别" value=""></el-option>
+          <el-option label="停车职员" :value="0"></el-option>
+          <el-option label="停车场管理员" :value="1"></el-option>
+        </el-select>
+      </el-col>
       <el-col :span="2">
         <el-button type="primary" size="small" style="width: 90%" @click="insertDialog">新增</el-button>
       </el-col>
@@ -86,7 +93,8 @@ export default {
       totalCount: 0,
       search: '',
       dialogVisible: false,
-      editRowIndex: ''
+      editRowIndex: '',
+      filterRole: ''
     }
   },
   methods: {
@@ -145,6 +153,16 @@ export default {
         this.$alert('解冻失败')
         this.getEmployees()
       }
+    },
+    filterByRole (roleCode) {
+      if (roleCode !== '') {
+        let filterList = this.allEmployees.filter(employee => employee.role === roleCode)
+        this.displayEmployees = JSON.parse(JSON.stringify(filterList)).splice((this.pageable.page - 1) * this.pageable.pageSize, this.pageable.pageSize)
+        this.totalCount = filterList.length
+      } else {
+        this.displayEmployees = JSON.parse(JSON.stringify(this.allEmployees)).splice((this.pageable.page - 1) * this.pageable.pageSize, this.pageable.pageSize)
+        this.totalCount = this.allEmployees.length
+      }
     }
   },
   mounted () {
@@ -155,13 +173,6 @@ export default {
 </script>
 
 <style scoped>
-  .search-bar {
-    text-align: left;
-    padding: 10px;
-    background-color: #FFFFFF;
-    margin-top: 5px;
-  }
-
   .nav-bar {
     background-color: #FFFFFF;
     text-align: left;
@@ -175,8 +186,7 @@ export default {
     bottom: 45px;
   }
 
-  .search-input {
-    padding-left: 15px;
+  .role-selector {
+    width: 12%;
   }
-
 </style>

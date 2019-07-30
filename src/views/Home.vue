@@ -57,7 +57,7 @@ export default {
   .header {
     text-align: center;
     height: 100px;
-    color: #FFFFFF;
+    color: rgb(34,167,127);
   }
 
   .aside {
@@ -82,12 +82,13 @@ export default {
   }
 
   .main-content {
-    margin: 10px;
+    margin: 10px 10px 10px 0px;
     background-color: #f4f5f9;
-    height: 100%;
+
+    padding-bottom: 0px;
   }
 
   >>> .el-header {
-    background-color: #FFFFFF;
+    background-color: rgb(24,144,255);
   }
 </style>

@@ -52,14 +52,14 @@ export default {
     font-weight: 400;
     font-size: 28px;
     text-align: left;
-    color: #409EFF;
+    color: #FFFFFF;
     padding-top: 0px;
     float: left;
     margin-left: 5px
   }
 
   .el-header {
-    background-color: #FFFFFF;
+
     color: #333;
     line-height: 60px;
   }

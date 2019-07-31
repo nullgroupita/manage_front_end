@@ -1,5 +1,5 @@
 <template>
-<div>
+<div style="margin-top: 3%">
   <el-row>
     <el-row class="nav-bar">
       <el-col :span="22" style="margin-top: 5px; font-weight: bold">用户列表</el-col>

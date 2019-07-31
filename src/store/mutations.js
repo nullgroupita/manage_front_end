@@ -11,6 +11,7 @@ const mutations = {
     state.user['userName'] = data.telephone
     state.user['name'] = data.name
     cookies.set(USER_INFO, state.user)
+    state.user['parkingLots'] = data.parkingLots
   },
   [GET_ALL_ORDERS] (state, data) {
     state.orders = data

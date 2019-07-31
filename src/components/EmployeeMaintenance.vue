@@ -14,7 +14,7 @@
       </el-col>
     </el-row>
     <el-row>
-      <el-table :data="displayEmployees" style="width: 100%" stripe max-height="500">
+      <el-table :data="displayEmployees" style="width: 100%" stripe max-height="650">
         <el-table-column label="序号" type="index" width="50"></el-table-column>
         <el-table-column label="姓名" sortable prop="name" align="center">
           <template slot-scope="scope">
@@ -120,6 +120,7 @@ export default {
     },
     handleDialog (value) {
       this.dialogVisible = value
+      this.getEmployees()
     },
     update (row) {
       this.editRowIndex = row.id

@@ -1,5 +1,5 @@
 <template>
-<el-row :gutter="20">
+<el-row>
   <el-col :span = 6 :offset="9">
     <img src="../assets/img/Parking_logo.svg" class="logo-icon">
   </el-col>
@@ -13,8 +13,8 @@
     </el-form-item>
   </el-form>
   </el-col>
-  <el-col :span = 4 :offset="11">
-    <el-button type="primary" @click="onLogin">登录</el-button>
+  <el-col :span = 6 :offset="10" class="button-margin">
+    <el-button type="primary" @click="onLogin" style="margin-right: 5%">登录</el-button>
     <el-button type="reset" @click="onReset">重置</el-button>
   </el-col>
 </el-row>
@@ -58,7 +58,12 @@ export default {
 
   .logo-icon {
     width: 30%;
-    margin-left: 35%;
+    margin-left: 40%;
     margin-bottom: 50px;
+  }
+
+  .button-margin {
+    position: relative;
+    left: 5%;
   }
 </style>

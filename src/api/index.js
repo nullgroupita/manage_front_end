@@ -3,7 +3,7 @@ import cookies from 'vue-cookies'
 import router from '../router'
 import {Message} from 'element-ui'
 import md5 from 'md5'
-import {USER_INFO} from '../common/constants'
+import {MANAGER_ROLE_CODE, USER_INFO} from '../common/constants'
 
 axios.defaults.baseURL = '/api'
 
@@ -102,13 +102,56 @@ async function getParkingLotsForQuery (params) {
   }
 }
 
+async function getEmployees () {
+  try {
+    const response = await axios.get(`/employees`)
+    return response.data.data
+  } catch (e) {
+    console.log(e)
+  }
+}
+
+async function getManagers () {
+  try {
+    const role = MANAGER_ROLE_CODE
+    const response = await axios.get(`/employees?role=${role}`)
+    return response.data.data
+  } catch (e) {
+    console.log(e)
+  }
+}
+
+async function createEmployee (params) {
+  try {
+    let employee = JSON.parse(JSON.stringify(params))
+    employee.password = md5(employee.password)
+    let response = await axios.post(`/employees`, params)
+    return response.data
+  } catch (e) {
+    console.log(e)
+  }
+}
+
+async function updateEmployee (employeeId, params) {
+  try {
+    const response = await axios.patch(`/employees/${employeeId}`, params)
+    return response.data
+  } catch (e) {
+    console.log(e)
+  }
+}
+
 const api = {
   login,
   getLoginUserInformation,
   getParkingLotsByManagerId,
   addParkingLot,
   updateParkingLot,
-  getParkingLotsForQuery
+  getParkingLotsForQuery,
+  getEmployees,
+  getManagers,
+  createEmployee,
+  updateEmployee
 }
 
 export default api

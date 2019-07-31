@@ -55,7 +55,7 @@
 <script>
 import api from '../api'
 import cookies from 'vue-cookies'
-import {CHANGE_ACTIVE_MENU, IN_ACTIVE, USER_INFO} from '../common/constants'
+import {CHANGE_ACTIVE_MENU, IN_ACTIVE_EMPLOYEE, USER_INFO} from '../common/constants'
 
 export default {
   data () {
@@ -85,7 +85,7 @@ export default {
       this.totalCount = this.allParkingLots.length
     },
     async freezeParkingLot (parkingLot) {
-      parkingLot.status = IN_ACTIVE
+      parkingLot.status = IN_ACTIVE_EMPLOYEE
       let response = await api.updateParkingLot(parkingLot)
       if (response.retCode === 200) {
         this.$message.success('冻结成功')

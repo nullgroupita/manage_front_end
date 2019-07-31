@@ -57,4 +57,8 @@ export const GET_USER_INFORMATION = 'get_user_information'
 
 export const USER_INFO = 'userInfo'
 
-export const IN_ACTIVE = 1
+export const IN_ACTIVE_EMPLOYEE = 1
+
+export const ACTIVE_EMPLOYEE = 0
+
+export const MANAGER_ROLE_CODE = 1

@@ -27,7 +27,7 @@
         <div class="text item" >
           <el-row>
             <el-col :span="14">
-              <el-progress type="circle"  :percentage="(item.capacity - item.nowAvailable)*100 / item.capacity" :show-text="true">sss</el-progress>
+              <el-progress type="circle"  :percentage="(item.capacity - item.nowAvailable)*100 / item.capacity" :show-text="true" :format="getParkingLotsStatus">sss</el-progress>
               <p>停车情况</p>
             </el-col>
             <el-col :span="10">
@@ -73,6 +73,11 @@ export default {
     },
     showAvaliableStatus () {
       this.filterStatus = SHOW_AVAILABLE_PARKING_LOTS_STATUS
+    },
+    getParkingLotsStatus (percentage) {
+      let x = this.$store.state.parkingLotsWithParkIngBoys.filter(v => ((v.capacity - v.nowAvailable) * 100 / v.capacity) === percentage)[0];
+      console.log(this.$store.state.parkingLotsWithParkIngBoys.filter(v => ((v.capacity - v.nowAvailable) * 100 / v.capacity) === percentage)[0].nowAvailable)
+      return x.capacity - x.nowAvailable + '/' + x.capacity
     }
   },
   components: {

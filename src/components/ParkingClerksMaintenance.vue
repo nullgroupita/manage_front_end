@@ -116,7 +116,7 @@ export default {
   },
   methods: {
     async getEmployees () {
-      let response = await api.getEmoloyeesForQuery(this.managerId)
+      let response = await api.getEmployeesForQuery(this.managerId)
       this.allEmployees = response
       this.displayEmployees = JSON.parse(JSON.stringify(this.allEmployees)).splice((this.pageable.page - 1) * this.pageable.pageSize, this.pageable.pageSize)
       this.totalCount = this.allEmployees.length

@@ -7,6 +7,7 @@ import UpdateParkingLot from '../components/UpdateParkingLot'
 import AddParkingLot from '../components/AddParkingLot'
 import ParkingLotsStatus from '../components/ParkingLotsStatus'
 import ParkingClerksMaintenance from '../components/ParkingClerksMaintenance'
+import EmployeeMaintenance from '../components/EmployeeMaintenance'
 
 Vue.use(Router)
 
@@ -39,13 +40,18 @@ export default new Router({
         },
         {
           path: '/parking-lots-status',
-          name: '/parking-lots-status',
+          name: 'parking-lots-status',
           component: ParkingLotsStatus
         },
         {
           path: '/parking-clerks-maintenance',
           name: '/parking-clerks-maintenance',
           component: ParkingClerksMaintenance
+        },
+        {
+          path: '/employee-list',
+          name: 'EmployeeMaintenance',
+          component: EmployeeMaintenance
         }
       ]
     }

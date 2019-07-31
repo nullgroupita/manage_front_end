@@ -55,6 +55,8 @@ export const CHANGE_ACTIVE_MENU = 'change_active_menu'
 
 export const GET_USER_INFORMATION = 'get_user_information'
 
+export const GET_PARKING_LOTS_WITH_PARKING_BOY = 'getParkingLotsWithParkingBoy'
+
 export const USER_INFO = 'userInfo'
 
 export const IN_ACTIVE_EMPLOYEE = 1

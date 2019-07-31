@@ -1,4 +1,10 @@
-import {CHANGE_ACTIVE_MENU, GET_USER_INFORMATION, MENU_LIST, USER_INFO} from '../common/constants'
+import {
+  CHANGE_ACTIVE_MENU,
+  GET_PARKING_LOTS_WITH_PARKING_BOY,
+  GET_USER_INFORMATION,
+  MENU_LIST,
+  USER_INFO
+} from '../common/constants'
 import cookies from 'vue-cookies'
 
 const mutations = {
@@ -12,6 +18,10 @@ const mutations = {
     state.user['name'] = data.name
     cookies.set(USER_INFO, state.user)
     state.user['parkingLots'] = data.parkingLots
+  },
+  [GET_PARKING_LOTS_WITH_PARKING_BOY] (state, data) {
+    console.log(data)
+    state.parkingLotsWithParkIngBoys = data
   }
 }
 

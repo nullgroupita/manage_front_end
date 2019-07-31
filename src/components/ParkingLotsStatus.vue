@@ -30,146 +30,55 @@
     <el-divider></el-divider>
   </el-row>
   <el-row :gutter="20" style="padding-top: 3%">
-    <el-col :span="8" :offset="0">
+    <el-col v-for="(item, index) in $store.state.parkingLotsWithParkIngBoys" :key="index" :span="8" :offset="0">
       <el-card shadow="hover">
         <div style="text-align: left" slot="header" class="clearfix">
-          <span>停车场A</span>
+          <span>停车场{{item.name}}</span>
         </div>
         <div class="text item">
           <el-row>
             <el-col :span="14">
-              <el-progress type="circle" :percentage="26" :show-text="true" :format="fuckit">sss</el-progress>
+              <el-progress type="circle" :percentage="(item.capacity - item.nowAvailable)*100 / item.capacity" :show-text="true">sss</el-progress>
               <p>停车情况</p>
             </el-col>
             <el-col :span="10">
-              <p>停车员: 张三</p>
+              <p v-for="(boy, i) in item.parkingBoys" :key="i">停车员: {{boy.name}}</p>
+<!--              <p>停车员: 张三</p>-->
             </el-col>
           </el-row>
         </div>
       </el-card>
     </el-col>
-    <el-col :span="8" :offset="0">
-      <el-card shadow="hover">
-        <div style="text-align: left" slot="header" class="clearfix">
-          <span>停车场B</span>
-        </div>
-        <div class="text item">
-          <el-row>
-            <el-col :span="10">
-              <el-progress type="circle" :percentage="26" :show-text="true" :format="fuckit">sss</el-progress>
-              <p>停车情况</p>
-            </el-col>
-            <el-col :span="10">
-              <p>停车员: 张三</p>
-            </el-col>
-          </el-row>
-        </div>
-      </el-card>
-    </el-col>
-    <el-col :span="8" :offset="0">
-      <el-card shadow="hover">
-        <div style="text-align: left" slot="header" class="clearfix">
-          <span>停车场C</span>
-        </div>
-        <div class="text item">
-          <el-row>
-            <el-col :span="10">
-              <el-progress type="circle" :percentage="26" :show-text="true" :format="fuckit">sss</el-progress>
-              <p>停车情况</p>
-            </el-col>
-            <el-col :span="10">
-              <p>停车员: 张三</p>
-            </el-col>
-          </el-row>
-        </div>
-      </el-card>
-    </el-col>
-  </el-row>
-  <el-row :gutter="0" style="padding-top: 3%">
-    <el-col :span="6" :offset="2">
-      <el-card shadow="hover">
-        <div style="text-align: left" slot="header" class="clearfix">
-          <span>停车场D</span>
-        </div>
-        <div class="text item">
-          <el-row>
-            <el-col :span="10">
-              <el-progress type="circle" :percentage="26" :show-text="true" :format="fuckit">sss</el-progress>
-              <p>停车情况</p>
-            </el-col>
-            <el-col :span="10">
-              <p>停车员: 张三</p>
-            </el-col>
-          </el-row>
-        </div>
-      </el-card>
-    </el-col>
-    <el-col :span="6" :offset="1">
-      <el-card shadow="hover">
-        <div style="text-align: left" slot="header" class="clearfix">
-          <span>停车场E</span>
-        </div>
-        <div class="text item">
-          <el-row>
-            <el-col :span="10">
-              <el-progress type="circle" :percentage="26" :show-text="true" :format="fuckit">sss</el-progress>
-              <p>停车情况</p>
-            </el-col>
-            <el-col :span="10">
-              <p>停车员: 张三</p>
-            </el-col>
-          </el-row>
-        </div>
-      </el-card>
-    </el-col>
-    <el-col :span="6" :offset="1">
-      <el-card shadow="hover">
-        <div style="text-align: left" slot="header" class="clearfix">
-          <span>停车场F</span>
-        </div>
-        <div class="text item">
-          <el-row>
-            <el-col :span="12">
-              <el-progress type="circle" :percentage="26" :show-text="true" :format="fuckit">sss</el-progress>
-              <p>停车情况</p>
-            </el-col>
-            <el-col :span="12">
-              <p>停车员: 张三</p>
-            </el-col>
-          </el-row>
-        </div>
-      </el-card>
-    </el-col>
-  </el-row>
-  <el-row style="padding-top: 3%;padding-bottom: 3%">
-    <el-col :offset="9">
-      <el-pagination
-        background
-        :pager-count="3"
-        layout="prev, pager, next"
-        :total="1000">
-      </el-pagination>
-    </el-col>
+
   </el-row>
   </div>
 </template>
 <script>
 import Menu from '../components/Menu'
 import Header from '../components/Header'
+import api from '../api'
+import {GET_PARKING_LOTS_WITH_PARKING_BOY} from '../common/constants'
 
 export default {
   name: 'ParkingLotsStatus',
-  data () {},
+  data () {
+    return {
+    }
+  },
   methods: {
-    fuckit (percentage) {
-      return Math.floor(percentage / 100 * 10) + '/10'
+    async getParkingLots () {
+      const response = await api.getAllParkingLotsWithParkingBoys(this.$store.state.user.id)
+      console.log(response)
     }
   },
   components: {
     Menu, Header
   },
-  mounted () {
-    console.log(this.$router.valueOf())
+  mounted: function () {
+    console.log(1111)
+    this.$store.dispatch(GET_PARKING_LOTS_WITH_PARKING_BOY, this.$store.state.user.id)
+    // console.log(this.$store.state.user.id)
+    // this.getParkingLots()
   }
 }
 </script>

@@ -1,6 +1,7 @@
 const state = {
   activeMenu: {},
-  user: {}
+  user: {},
+  parkingLotsWithParkIngBoys: []
 }
 
 export default state

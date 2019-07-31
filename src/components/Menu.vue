@@ -30,14 +30,6 @@
 <script>
 
 export default {
-  data () {
-  },
-  methods: {
-  },
-  computed: {
-  },
-  mounted () {
-  }
 }
 </script>
 

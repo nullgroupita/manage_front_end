@@ -21,7 +21,7 @@
     </el-table-column>
     <el-table-column prop="type" label="操作" width="300" align="center">
       <template slot-scope="scope">
-        <el-button size="mini" type="primary" @click="test(scope.row.status)" v-if="scope.row.status===0||scope.row.status===3"
+        <el-button size="mini" type="primary" @click="assignOrder(scope.row.status)" v-if="scope.row.status===0||scope.row.status===3"
         >指派</el-button>
         <el-dialog title="指派停车订单" :visible.sync="dialogParkingFormVisible">
           <el-form>
@@ -48,7 +48,7 @@
           </el-form>
           <div slot="footer" class="dialog-footer">
             <el-button @click="dialogParkingFormVisible = false">取 消</el-button>
-            <el-button type="primary" @click="sendParkingOrder(scope.row.id)">确 定</el-button>
+            <el-button type="primary" @click="sendParkingOrder(scope.row)">确 定</el-button>
           </div>
         </el-dialog>
             <el-dialog title="指派取车订单" :visible.sync="dialogFetchingFormVisible">
@@ -75,7 +75,6 @@
 </template>
 
 <script>
-import axios from 'axios'
 import {USER_INFO, GET_ALL_ORDERS} from '../common/constants'
 import cookies from 'vue-cookies'
 import api from '../api/index'
@@ -84,7 +83,6 @@ export default {
   data () {
     return {
       managerId: '',
-      // orders: [],
       dialogParkingFormVisible: false,
       dialogFetchingFormVisible: false,
       formLabelWidth: '120px',
@@ -95,10 +93,6 @@ export default {
         {
           id: '1',
           name: 'zhangsan'
-        },
-        {
-          id: '123321',
-          name: 'lisi'
         }
       ]
     }
@@ -114,18 +108,13 @@ export default {
       const property = column['property']
       return row[property] === value
     },
-    sendParkingOrder (id) {
+    sendParkingOrder (order) {
       let obj = {
-        orderId: id,
+        orderId: order.id,
         parkingBoyId: this.selectedBoy,
         parkingLotId: this.selectedParkingLot
       }
-      axios.patch('/orders', obj)
-      // console.log('parking')
-      // console.log('12', value)
-      // console.log(this.selectedBoy)
-      // console.log(this.selectedParkingLot)
-      // assignOrderToClerk (clerkId, params)
+      api.sendParkingOrder(obj)
     },
     sendFetchingOrder (order) {
       let obj = {
@@ -133,30 +122,19 @@ export default {
         parkingBoyId: this.selectedBoy,
         parkingLotId: order.parkingLot.id
       }
-      axios.patch('/orders', obj)
+      api.sendFetchingOrder(obj)
     },
     async selectedParkingBoy () {
-      // this.selectedParkingLots = api.getParkingLotByClerk(this.selectedBoy)
       let response = await api.getParkingLotByClerk(this.selectedBoy)
       this.selectedParkingLots = response.data.pageContent
-      // console.log('this.selectedParkingLots', this.selectedParkingLots)
     },
-    test (value) {
+    assignOrder (value) {
       if (value === 0) {
         this.dialogParkingFormVisible = true
       } else {
         this.dialogFetchingFormVisible = true
       }
     }
-    // dialogFormVisible: function (row) {
-    //   //
-    //   console.log(row.type)
-    // },
-    // watch: {
-    //   selectedBoy: function (newSelectedBoy, oldSelectedBoy) {
-    //     // api.getParkingLotByClerk(val)
-    //   }
-    // }
   },
   computed: {
     orders: function () {
@@ -166,9 +144,7 @@ export default {
   mounted () {
     let userInfo = cookies.get(USER_INFO)
     this.managerId = userInfo.id
-    // this.getAllManagedOrders(this.managerId)
     this.$store.dispatch(GET_ALL_ORDERS, this.managerId)
-    console.log(this.$store.state.orders)
   }
 }
 </script>

@@ -125,7 +125,6 @@ async function getAllOrders (managerId) {
     const response = await axios.get(`/employees/${managerId}/orders`)
     console.log(response.data)
     return response.data
-    // console.log(response.data)
   } catch (e) {
     console.log(e)
   }
@@ -134,10 +133,33 @@ async function getAllOrders (managerId) {
 async function getUnReceiptOrders (managerId) {
   try {
     const response = await axios.get(`/orders`)
-    console.log(12334)
-    console.log(response.data)
     return response.data.data
-    // console.log(response.data)
+  } catch (e) {
+    console.log(e)
+  }
+}
+
+async function sendParkingOrder (obj) {
+  try {
+    const response = await axios.patch(`/orders`, obj)
+    this.$message({
+      message: '指派停车订单成功',
+      type: 'success'
+    })
+    return response.data
+  } catch (e) {
+    console.log(e)
+  }
+}
+
+async function sendFetchingOrder (obj) {
+  try {
+    const response = await axios.patch(`/orders`, obj)
+    this.$message({
+      message: '指派取车订单成功',
+      type: 'success'
+    })
+    return response.data
   } catch (e) {
     console.log(e)
   }
@@ -153,7 +175,9 @@ const api = {
   assignOrderToClerk,
   getParkingLotByClerk,
   getAllOrders,
-  getUnReceiptOrders
+  getUnReceiptOrders,
+  sendParkingOrder,
+  sendFetchingOrder
 }
 
 export default api

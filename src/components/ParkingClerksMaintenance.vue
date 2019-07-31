@@ -43,10 +43,14 @@
           </template>
         </el-table-column>
       </el-table>
+      <el-row>
+        <el-col :offset="17">
       <el-pagination class="table-nav" @size-change="handleSizeChange" @current-change="handleCurrentChange"
         :current-page="pageable.page" background :page-sizes="[10,20, 100, 200, 500]" :page-size="pageable.pageSize"
         layout="total, sizes, prev, pager, next, jumper" :total="totalCount">
       </el-pagination>
+        </el-col>
+      </el-row>
     </el-row>
   </el-row>
   <div v-if="isShowDialog">

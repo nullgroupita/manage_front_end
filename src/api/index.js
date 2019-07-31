@@ -228,6 +228,15 @@ async function sendFetchingOrder (obj) {
   }
 }
 
+async function getAllParkingLotsWithParkingBoys (employeeId) {
+  try {
+    const response = await axios.get(`/employees/${employeeId}/parking-lots/1`)
+    return response.data
+  } catch (e) {
+    console.log(e)
+  }
+}
+
 const api = {
   login,
   getLoginUserInformation,
@@ -247,7 +256,8 @@ const api = {
   getAllOrders,
   getUnReceiptOrders,
   sendParkingOrder,
-  sendFetchingOrder
+  sendFetchingOrder,
+  getAllParkingLotsWithParkingBoys
 }
 
 export default api

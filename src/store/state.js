@@ -1,7 +1,8 @@
 const state = {
   activeMenu: {},
   user: {},
-  orders: []
+  orders: [],
+  parkingLotsWithParkIngBoys: []
 }
 
 export default state

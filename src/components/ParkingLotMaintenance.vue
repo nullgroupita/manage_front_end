@@ -1,5 +1,5 @@
 <template>
-  <el-row>
+  <el-row style="margin-top: 3%">
 <!--    <el-row class="search-bar">-->
 <!--      <el-col>-->
 <!--        <el-col :span="20">&nbsp; <img src="../assets/img/tip.svg" width="3%"></el-col>-->
@@ -45,11 +45,15 @@
           </template>
         </el-table-column>
       </el-table>
+      <el-row>
+        <el-col :offset="17">
       <el-pagination class="table-nav" @size-change="handleSizeChange" @current-change="handleCurrentChange"
                      :current-page="pageable.page" background
                      :page-sizes="[10,20, 100, 200, 500]" :page-size="pageable.pageSize"
                      layout="total, sizes, prev, pager, next, jumper" :total="totalCount">
       </el-pagination>
+        </el-col>
+      </el-row>
       <ParkingLotDialog v-if="dialogVisible" @showDialog="handleDialog"></ParkingLotDialog>
     </el-row>
   </el-row>

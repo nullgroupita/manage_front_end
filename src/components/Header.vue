@@ -1,42 +1,50 @@
 <template>
-  <el-header style="text-align: right; font-size: 12px">
-    <span style="float: left; margin-top: 10px">
-      <img src="../assets/img/Parking_logo.svg" width="40px">
-    </span>
-    <span class="title">{{title}}</span>
-    <span class="logout" @click.native="logout">
-      <span>
-        <img src="../assets/img/logout.svg" class="logout-icon"/>
-        <span>退出</span>
-      </span>
-    </span>
-    <!--    <el-col :span="2" class="title-icon">-->
-    <!--      <img src="../assets/img/Parking_logo.svg" width="40px">-->
-    <!--    </el-col>-->
-    <!--    <el-col :span="10" class="title">-->
-    <!--      {{title}}-->
-    <!--    </el-col>-->
-    <!--    <el-col :span="10">&nbsp;</el-col>-->
-    <!--    <el-col :span="2" class="logout" @click.native="logout">-->
-    <!--      <el-col :span="12">-->
-    <!--        <img src="../assets/img/logout.svg" class="logout-icon" />-->
-    <!--      </el-col>-->
-    <!--      <el-col :span="12" style="margin-top: 30px; margin-left: -48px;">退出</el-col>-->
-    <!--    </el-col>-->
+  <el-header style=" font-size: 12px">
+    <el-row>
+      <el-col :span="1">
+        <i class="el-icon-alitingchechang" style="font-size:60px;color: #FFF;"></i>
+      </el-col>
+      <el-col :span="5">
+        <span class="title">{{title}}</span>
+      </el-col>
+      <el-col :span="1" :offset="15">
+        <i class="el-icon-user" style="color: #FFF;font-size: 40px;line-height: unset"></i>
+      </el-col>
+      <el-col :span="2" :offset="0">
+        <span class="username">{{username}}</span>
+      </el-col>
+    </el-row>
+<!--    <span style="float: left; margin-top: 10px">-->
+<!--      <img src="../assets/img/p-logo-white.png" width="40px">-->
+<!--    </span>-->
+<!--    <span class="title">{{title}}</span>-->
+<!--    <span style="float: right">-->
+<!--      place Holder-->
+<!--    </span>-->
+<!--    <span class="logout" @click.native="logout">-->
+<!--      <span>-->
+<!--        <i class="el-icon-user" style="color: #FFF;font-size: 34px"></i>-->
+<!--      </span>-->
+<!--    </span>-->
   </el-header>
 </template>
 
 <script>
+import Avatar from 'vue-avatar'
 export default {
   data () {
     return {
-      title: 'Easy Parking 管理平台'
+      title: 'Easy Parking 管理平台',
+      username: 'Username'
     }
   },
   methods: {
     logout () {
       this.$alert('请到login页面')
     }
+  },
+  components: {
+    Avatar
   }
 }
 </script>
@@ -52,14 +60,23 @@ export default {
     font-weight: 400;
     font-size: 28px;
     text-align: left;
-    color: #409EFF;
+    color: #FFFFFF;
+    padding-top: 0px;
+    float: left;
+    margin-left: 5px
+  }
+  .username {
+    font-weight: 300;
+    font-size: 20px;
+    text-align: left;
+    color: #FFFFFF;
     padding-top: 0px;
     float: left;
     margin-left: 5px
   }
 
   .el-header {
-    background-color: #FFFFFF;
+
     color: #333;
     line-height: 60px;
   }

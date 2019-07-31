@@ -4,7 +4,8 @@ import {
   MENU_LIST,
   USER_INFO,
   GET_ALL_ORDERS,
-  GET_MANAGER_PARKINGLOTS
+  GET_MANAGER_PARKINGLOTS,
+  GET_PARKING_LOTS_WITH_PARKING_BOY
 } from '../common/constants'
 import cookies from 'vue-cookies'
 
@@ -17,13 +18,18 @@ const mutations = {
     state.user['id'] = data.id
     state.user['userName'] = data.telephone
     state.user['name'] = data.name
-    cookies.set(USER_INFO, state.user)
+    cookies.set(USER_INFO, state.user),
+    state.user['parkingLots'] = data.parkingLots
   },
   [GET_ALL_ORDERS] (state, data) {
     state.orders = data
   },
   [GET_MANAGER_PARKINGLOTS] (state, data) {
     state.user['parkingLots'] = data
+  },
+  [GET_PARKING_LOTS_WITH_PARKING_BOY] (state, data) {
+    console.log(data)
+    state.parkingLotsWithParkIngBoys = data
   }
 }
 

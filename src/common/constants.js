@@ -64,3 +64,9 @@ export const IN_ACTIVE_EMPLOYEE = 1
 export const ACTIVE_EMPLOYEE = 0
 
 export const MANAGER_ROLE_CODE = 1
+
+export const SHOW_ALL_PARKING_LOTS_STATUS = 0
+
+export const SHOW_FULL_PARKING_LOTS_STATUS = 1
+
+export const SHOW_AVAILABLE_PARKING_LOTS_STATUS = 2

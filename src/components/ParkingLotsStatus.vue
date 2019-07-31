@@ -75,7 +75,7 @@ export default {
       this.filterStatus = SHOW_AVAILABLE_PARKING_LOTS_STATUS
     },
     getParkingLotsStatus (percentage) {
-      let x = this.$store.state.parkingLotsWithParkIngBoys.filter(v => ((v.capacity - v.nowAvailable) * 100 / v.capacity) === percentage)[0];
+      let x = this.$store.state.parkingLotsWithParkIngBoys.filter(v => ((v.capacity - v.nowAvailable) * 100 / v.capacity) === percentage)[0]
       console.log(this.$store.state.parkingLotsWithParkIngBoys.filter(v => ((v.capacity - v.nowAvailable) * 100 / v.capacity) === percentage)[0].nowAvailable)
       return x.capacity - x.nowAvailable + '/' + x.capacity
     }

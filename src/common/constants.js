@@ -64,3 +64,5 @@ export const IN_ACTIVE_EMPLOYEE = 1
 export const ACTIVE_EMPLOYEE = 0
 
 export const MANAGER_ROLE_CODE = 1
+
+export const GET_MANAGER_PARKINGLOTS = 'get_manager_parkinglots'

@@ -41,13 +41,15 @@
 import Menu from '../components/Menu'
 import Header from '../components/Header'
 import ContentTitle from '../components/ContentTitle'
-import {GET_USER_INFORMATION} from '../common/constants'
+import {GET_MANAGER_PARKINGLOTS, GET_USER_INFORMATION} from '../common/constants'
 export default {
   components: {
     Menu, Header, ContentTitle
   },
   mounted () {
-    this.$store.dispatch(GET_USER_INFORMATION)
+    this.$store.dispatch(GET_USER_INFORMATION).then(val => {
+      this.$store.dispatch(GET_MANAGER_PARKINGLOTS, this.$store.state.user.id)
+    })
   }
 }
 </script>

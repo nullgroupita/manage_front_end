@@ -165,12 +165,12 @@ export default {
     },
     handleSizeChange (val) {
       this.pageable.pageSize = val
-      this.displayParkingLots = JSON.parse(JSON.stringify(this.allParkingLots)).splice((this.pageable.page - 1) * this
+      this.displayEmployees = JSON.parse(JSON.stringify(this.allEmployees)).splice((this.pageable.page - 1) * this
         .pageable.pageSize, this.pageable.pageSize)
     },
     handleCurrentChange (val) {
       this.pageable.page = val
-      this.displayParkingLots = JSON.parse(JSON.stringify(this.allParkingLots)).splice((this.pageable.page - 1) * this
+      this.displayEmployees = JSON.parse(JSON.stringify(this.allEmployees)).splice((this.pageable.page - 1) * this
         .pageable.pageSize, this.pageable.pageSize)
     },
     filterList (val) {

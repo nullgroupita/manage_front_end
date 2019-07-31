@@ -1,4 +1,11 @@
-import {CHANGE_ACTIVE_MENU, GET_USER_INFORMATION, MENU_LIST, USER_INFO, GET_ALL_ORDERS} from '../common/constants'
+import {
+  CHANGE_ACTIVE_MENU,
+  GET_USER_INFORMATION,
+  MENU_LIST,
+  USER_INFO,
+  GET_ALL_ORDERS,
+  GET_MANAGER_PARKINGLOTS
+} from '../common/constants'
 import cookies from 'vue-cookies'
 
 const mutations = {
@@ -11,10 +18,12 @@ const mutations = {
     state.user['userName'] = data.telephone
     state.user['name'] = data.name
     cookies.set(USER_INFO, state.user)
-    state.user['parkingLots'] = data.parkingLots
   },
   [GET_ALL_ORDERS] (state, data) {
     state.orders = data
+  },
+  [GET_MANAGER_PARKINGLOTS] (state, data) {
+    state.user['parkingLots'] = data
   }
 }
 

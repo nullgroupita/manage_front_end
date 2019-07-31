@@ -14,7 +14,7 @@
       </el-col>
     </el-row>
     <el-row>
-      <el-table :data="displayEmployees" style="width: 100%" stripe max-height="500">
+      <el-table :data="displayEmployees" style="width: 100%" stripe max-height="650">
         <el-table-column label="序号" type="index" width="50"></el-table-column>
         <el-table-column label="姓名" sortable prop="name" align="center">
           <template slot-scope="scope">
@@ -120,13 +120,14 @@ export default {
     },
     handleDialog (value) {
       this.dialogVisible = value
+      this.getEmployees()
     },
     update (row) {
       this.editRowIndex = row.id
     },
     async saveUpdate (row) {
       this.editRowIndex = ''
-      let response = await api.updateEmployee(row.id, row)
+      let response = await api.updateEmployeeByAdmin(row.id, row)
       if (response.retCode === 200) {
         this.$alert('修改成功')
       } else {
@@ -136,7 +137,7 @@ export default {
     },
     async freezeEmployee (row) {
       row.status = IN_ACTIVE_EMPLOYEE
-      let response = await api.updateEmployee(row.id, row)
+      let response = await api.updateEmployeeByAdmin(row.id, row)
       if (response.retCode === 200) {
         this.$alert('冻结成功')
       } else {
@@ -146,7 +147,7 @@ export default {
     },
     async activeEmployee (row) {
       row.status = ACTIVE_EMPLOYEE
-      let response = await api.updateEmployee(row.id, row)
+      let response = await api.updateEmployeeByAdmin(row.id, row)
       if (response.retCode === 200) {
         this.$alert('解冻成功')
       } else {

@@ -30,7 +30,7 @@
           <el-input type="password" v-model="confirmPassword"></el-input>
         </el-form-item>
         <el-form-item label="分配经理" v-if="employee.role === '0'">
-          <el-select v-model="employee.managerId" placeholder="请选择">
+          <el-select v-model="employee.managedId" placeholder="请选择">
             <el-option v-for="item in managerList" :key="item.id" :label="item.name" :value="item.id"></el-option>
           </el-select>
         </el-form-item>
@@ -58,7 +58,7 @@ export default {
         telephone: '',
         idCardNumber: '',
         password: '',
-        managerId: ''
+        managedId: ''
       },
       confirmPassword: '',
       managerList: [],

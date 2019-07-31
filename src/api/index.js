@@ -55,7 +55,7 @@ async function login (params) {
 
 async function getLoginUserInformation () {
   try {
-    const response = await axios.get('/employees/0')
+    const response = await axios.get(`/current-user`)
     return response.data.data
   } catch (e) {
     console.log(e)
@@ -85,7 +85,16 @@ async function updateParkingLot (params) {
   try {
     let userId = cookies.get(USER_INFO).id
     const response = await axios.patch(`/employees/${userId}/parking-lots`, params)
-    console.log('update', response)
+    return response.data
+  } catch (e) {
+    console.log(e)
+  }
+}
+
+async function updateEmployee (params) {
+  try {
+    let userId = cookies.get(USER_INFO).id
+    const response = await axios.patch(`/employees/${userId}/employees`, params)
     return response.data
   } catch (e) {
     console.log(e)
@@ -97,6 +106,26 @@ async function getParkingLotsForQuery (params) {
     let userId = cookies.get(USER_INFO).id
     const response = await axios.get(`/employees/${userId}/parking-lots`, params)
     return response.data.data
+  } catch (e) {
+    console.log(e)
+  }
+}
+
+async function getEmployeesForQuery (params) {
+  try {
+    let userId = cookies.get(USER_INFO).id
+    const response = await axios.get(`/employees/${userId}/employees`, params)
+    return response.data.data
+  } catch (e) {
+    console.log(e)
+  }
+}
+
+async function updateEmployeeById (params) {
+  try {
+    let userId = cookies.get(USER_INFO).id
+    const response = await axios.patch(`/employees/${userId}`, params)
+    return response.data
   } catch (e) {
     console.log(e)
   }
@@ -132,7 +161,7 @@ async function createEmployee (params) {
   }
 }
 
-async function updateEmployee (employeeId, params) {
+async function updateEmployeeByAdmin (employeeId, params) {
   try {
     const response = await axios.patch(`/employees/${employeeId}`, params)
     return response.data
@@ -151,7 +180,10 @@ const api = {
   getEmployees,
   getManagers,
   createEmployee,
-  updateEmployee
+  getEmployeesForQuery,
+  updateEmployee,
+  updateEmployeeById,
+  updateEmployeeByAdmin
 }
 
 export default api

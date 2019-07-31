@@ -49,7 +49,7 @@
     <el-divider></el-divider>
   </el-row>
   <el-row :gutter="20" style="padding-top: 3%">
-    <el-col :span="8" offset="0">
+    <el-col :span="8" :offset="0">
       <el-card shadow="hover">
         <div style="text-align: left" slot="header" class="clearfix">
           <span>停车场A</span>
@@ -105,7 +105,7 @@
     </el-col>
   </el-row>
   <el-row :gutter="0" style="padding-top: 3%">
-    <el-col :span="6" offset="2">
+    <el-col :span="6" :offset="2">
       <el-card shadow="hover">
         <div style="text-align: left" slot="header" class="clearfix">
           <span>停车场D</span>
@@ -161,7 +161,7 @@
     </el-col>
   </el-row>
   <el-row style="padding-top: 3%;padding-bottom: 3%">
-    <el-col offset="9">
+    <el-col :offset="9">
       <el-pagination
         background
         :pager-count="3"
@@ -177,8 +177,6 @@ import Menu from '../components/Menu'
 import Header from '../components/Header'
 
 export default {
-  name: 'ParkingLotsStatus',
-  data () {},
   methods: {
     fuckit (percentage) {
       return Math.floor(percentage / 100 * 10) + '/10'

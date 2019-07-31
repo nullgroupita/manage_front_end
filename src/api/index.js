@@ -183,7 +183,6 @@ async function getParkingLotByClerk (clerkId) {
   try {
     const response = await axios.get(`/employees/${clerkId}/parking-lots`)
     return response.data
-    // return response.data
   } catch (e) {
     console.log(e)
   }
@@ -192,7 +191,6 @@ async function getParkingLotByClerk (clerkId) {
 async function getAllOrders (managerId) {
   try {
     const response = await axios.get(`/employees/${managerId}/orders`)
-    console.log(response.data)
     return response.data
   } catch (e) {
     console.log(e)
@@ -202,7 +200,11 @@ async function getAllOrders (managerId) {
 async function getUnReceiptOrders (managerId) {
   try {
     const response = await axios.get(`/orders`)
-    return response.data.data
+    const orders = response.data.data.map(item => {
+      item.type = item.status === 0 ? 0 : 1
+      return item
+    })
+    return orders
   } catch (e) {
     console.log(e)
   }
@@ -211,10 +213,6 @@ async function getUnReceiptOrders (managerId) {
 async function sendParkingOrder (obj) {
   try {
     const response = await axios.patch(`/orders`, obj)
-    this.$message({
-      message: '指派停车订单成功',
-      type: 'success'
-    })
     return response.data
   } catch (e) {
     console.log(e)
@@ -224,10 +222,6 @@ async function sendParkingOrder (obj) {
 async function sendFetchingOrder (obj) {
   try {
     const response = await axios.patch(`/orders`, obj)
-    this.$message({
-      message: '指派取车订单成功',
-      type: 'success'
-    })
     return response.data
   } catch (e) {
     console.log(e)

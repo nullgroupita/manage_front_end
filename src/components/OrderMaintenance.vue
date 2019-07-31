@@ -6,29 +6,27 @@
         <span>{{scope.row.carNumber}}</span>
       </template>
     </el-table-column>
-    <el-table-column label="类型" width="300" align="center" :formatter="forType">
+    <el-table-column label="类型" width="300" align="center">
       <template slot-scope="scope">
-        <span>{{2>=scope.row.status ? '停车' : '取车'}}</span>
+        <span>{{scope.row.type === 0 ? '停车' : '取车' }}</span>
       </template>
     </el-table-column>
     <el-table-column label="状态" width="300" align="center"
-      :formatter="forStatus"
       :filters="[{text: '已接单', value: '1'}, {text: '未接单', value: '2'}]"
       :filter-method="filterHandler">
       <template slot-scope="scope">
-        <span>{{scope.row.status === 0 || scope.row.status === 3 ? '未接单' : '已接单'}}</span>
+        <span>{{(scope.row.status===0||(scope.row.status===3 && scope.row.type === 1))?"未接单":"已接单"}}</span>
       </template>
     </el-table-column>
     <el-table-column prop="type" label="操作" width="300" align="center">
       <template slot-scope="scope">
-        <el-button size="mini" type="primary" @click="assignOrder(scope.row.status)" v-if="scope.row.status===0||scope.row.status===3"
-        >指派</el-button>
+        <el-button size="mini" type="primary" @click="assignOrder(scope.row)" v-if="scope.row.status===0||(scope.row.status===3 && scope.row.type === 1)">指派</el-button>
         <el-dialog title="指派停车订单" :visible.sync="dialogParkingFormVisible">
           <el-form>
             <el-form-item label="接单职员" :label-width="formLabelWidth">
               <el-select v-model="selectedBoy" @change="selectedParkingBoy" placeholder="请选择停车员">
                 <el-option
-                  v-for="item in parkingBoy"
+                  v-for="item in parkingClerks"
                   :key="item.id"
                   :label="item.name"
                   :value="item.id">
@@ -48,7 +46,7 @@
           </el-form>
           <div slot="footer" class="dialog-footer">
             <el-button @click="dialogParkingFormVisible = false">取 消</el-button>
-            <el-button type="primary" @click="sendParkingOrder(scope.row)">确 定</el-button>
+            <el-button type="primary" @click="sendParkingOrder">确 定</el-button>
           </div>
         </el-dialog>
             <el-dialog title="指派取车订单" :visible.sync="dialogFetchingFormVisible">
@@ -56,7 +54,7 @@
                   <el-form-item label="接单职员" :label-width="formLabelWidth">
                     <el-select v-model="selectedBoy"  placeholder="请选择停车员">
                       <el-option
-                        v-for="item in parkingBoy"
+                        v-for="item in parkingClerks"
                         :key="item.id"
                         :label="item.name"
                         :value="item.id">
@@ -66,7 +64,7 @@
                 </el-form>
                 <div slot="footer" class="dialog-footer">
                   <el-button @click="dialogFetchingFormVisible = false">取 消</el-button>
-                  <el-button type="primary" @click="sendFetchingOrder(scope.row)">确 定</el-button>
+                  <el-button type="primary" @click="sendFetchingOrder">确 定</el-button>
                 </div>
                 </el-dialog>
       </template>
@@ -75,13 +73,14 @@
 </template>
 
 <script>
-import {USER_INFO, GET_ALL_ORDERS} from '../common/constants'
+import {USER_INFO} from '../common/constants'
 import cookies from 'vue-cookies'
-import api from '../api/index'
+import api from '../api'
 export default {
   name: 'OrderManagement',
   data () {
     return {
+      orders: [],
       managerId: '',
       dialogParkingFormVisible: false,
       dialogFetchingFormVisible: false,
@@ -89,62 +88,67 @@ export default {
       selectedBoy: ' ',
       selectedParkingLot: ' ',
       selectedParkingLots: [],
-      parkingBoy: [
-        {
-          id: '1',
-          name: 'zhangsan'
-        }
-      ]
+      parkingClerks: [],
+      displayBoys: [],
+      assignRowOrder: {}
     }
   },
   methods: {
-    forStatus (row) {
-      return row.status === '1' ? '已接单' : '未接单'
-    },
-    forType (row) {
-      return row.type === '1' ? '停车' : '取车'
-    },
     filterHandler (value, row, column) {
       const property = column['property']
       return row[property] === value
     },
-    sendParkingOrder (order) {
+    sendParkingOrder () {
+      let order = this.assignRowOrder
       let obj = {
         orderId: order.id,
         parkingBoyId: this.selectedBoy,
         parkingLotId: this.selectedParkingLot
       }
-      api.sendParkingOrder(obj)
+      let response = api.sendParkingOrder(obj)
+      if (response.retCode === 200) {
+        this.$message.success('指派停车订单成功')
+      }
+      this.dialogParkingFormVisible = false
     },
-    sendFetchingOrder (order) {
+    sendFetchingOrder () {
+      let order = this.assignRowOrder
       let obj = {
         orderId: order.id,
-        parkingBoyId: this.selectedBoy,
-        parkingLotId: order.parkingLot.id
+        parkingBoyId: this.selectedBoy
       }
-      api.sendFetchingOrder(obj)
+      let response = api.sendFetchingOrder(obj)
+      if (response.retCode === 200) {
+        this.$message.success('指派取车订单成功')
+      }
+      this.dialogFetchingFormVisible = false
     },
     async selectedParkingBoy () {
       let response = await api.getParkingLotByClerk(this.selectedBoy)
       this.selectedParkingLots = response.data.pageContent
     },
+    async getAllOrders (id) {
+      let orders = await api.getAllOrders(id)
+      let unReceiptOrders = await api.getUnReceiptOrders()
+      this.orders = unReceiptOrders.concat(orders.data)
+    },
     assignOrder (value) {
-      if (value === 0) {
+      this.assignRowOrder = value
+      if (value.status === 0) {
         this.dialogParkingFormVisible = true
       } else {
         this.dialogFetchingFormVisible = true
       }
-    }
-  },
-  computed: {
-    orders: function () {
-      return this.$store.state.orders
+    },
+    async getParkingBoys () {
+      this.parkingClerks = await api.getEmployeesForQuery()
     }
   },
   mounted () {
     let userInfo = cookies.get(USER_INFO)
     this.managerId = userInfo.id
-    this.$store.dispatch(GET_ALL_ORDERS, this.managerId)
+    this.getAllOrders(this.managerId)
+    this.getParkingBoys(this.managerId)
   }
 }
 </script>

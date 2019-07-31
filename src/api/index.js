@@ -55,7 +55,9 @@ async function login (params) {
 
 async function getLoginUserInformation () {
   try {
-    const response = await axios.get('/employees/0')
+    let userId = cookies.get(USER_INFO).id
+    // const response = await axios.get('/employees/0')
+    const response = await axios.get(`/employees/${userId}`)
     return response.data.data
   } catch (e) {
     console.log(e)
@@ -85,7 +87,16 @@ async function updateParkingLot (params) {
   try {
     let userId = cookies.get(USER_INFO).id
     const response = await axios.patch(`/employees/${userId}/parking-lots`, params)
-    console.log('update', response)
+    return response.data
+  } catch (e) {
+    console.log(e)
+  }
+}
+
+async function updateEmployee (params) {
+  try {
+    let userId = cookies.get(USER_INFO).id
+    const response = await axios.patch(`/employees/${userId}/employees`, params)
     return response.data
   } catch (e) {
     console.log(e)
@@ -102,13 +113,36 @@ async function getParkingLotsForQuery (params) {
   }
 }
 
+async function getEmoloyeesForQuery (params) {
+  try {
+    let userId = cookies.get(USER_INFO).id
+    const response = await axios.get(`/employees/${userId}/employees`, params)
+    return response.data.data
+  } catch (e) {
+    console.log(e)
+  }
+}
+
+async function updateEmployeeById (params) {
+  try {
+    let userId = cookies.get(USER_INFO).id
+    const response = await axios.patch(`/employees/${userId}`, params)
+    return response.data
+  } catch (e) {
+    console.log(e)
+  }
+}
+
 const api = {
   login,
   getLoginUserInformation,
   getParkingLotsByManagerId,
   addParkingLot,
   updateParkingLot,
-  getParkingLotsForQuery
+  getParkingLotsForQuery,
+  getEmoloyeesForQuery,
+  updateEmployee,
+  updateEmployeeById
 }
 
 export default api

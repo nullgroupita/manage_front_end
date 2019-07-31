@@ -1,24 +1,5 @@
 <template>
-  <el-row>
-  <el-row>
-    <el-col :span="3" :offset="0">
-      <div class="grid-content bg-purple-dark"><p>停车场状态</p></div>
-    </el-col>
-  </el-row>
-  <el-row>
-    <el-col>
-      <div>
-        <el-divider></el-divider>
-      </div>
-    </el-col>
-  </el-row>
-  <el-row>
-    <el-col :span="3" :offset="0">
-      <div>
-        <p style=" font-weight:600">查看状态</p>
-      </div>
-    </el-col>
-  </el-row>
+  <div>
   <el-row style="margin-top: 3%;background-color:rgb(224,224,224)">
     <el-col :span="3" :offset="0">
       <div>
@@ -49,7 +30,7 @@
     <el-divider></el-divider>
   </el-row>
   <el-row :gutter="20" style="padding-top: 3%">
-    <el-col :span="8" offset="0">
+    <el-col :span="8" :offset="0">
       <el-card shadow="hover">
         <div style="text-align: left" slot="header" class="clearfix">
           <span>停车场A</span>
@@ -105,7 +86,7 @@
     </el-col>
   </el-row>
   <el-row :gutter="0" style="padding-top: 3%">
-    <el-col :span="6" offset="2">
+    <el-col :span="6" :offset="2">
       <el-card shadow="hover">
         <div style="text-align: left" slot="header" class="clearfix">
           <span>停车场D</span>
@@ -161,7 +142,7 @@
     </el-col>
   </el-row>
   <el-row style="padding-top: 3%;padding-bottom: 3%">
-    <el-col offset="9">
+    <el-col :offset="9">
       <el-pagination
         background
         :pager-count="3"
@@ -170,7 +151,7 @@
       </el-pagination>
     </el-col>
   </el-row>
-  </el-row>
+  </div>
 </template>
 <script>
 import Menu from '../components/Menu'
@@ -186,6 +167,9 @@ export default {
   },
   components: {
     Menu, Header
+  },
+  mounted () {
+    console.log(this.$router.valueOf())
   }
 }
 </script>

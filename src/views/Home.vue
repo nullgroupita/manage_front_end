@@ -9,7 +9,10 @@
       </el-aside>
       <el-container class="main">
         <el-main class="main-content">
-          <ContentTitle></ContentTitle>
+          <el-breadcrumb separator="/">
+            <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
+            <el-breadcrumb-item :to="{ path: '/' }">员工管理</el-breadcrumb-item>
+          </el-breadcrumb>
           <router-view />
         </el-main>
       </el-container>
@@ -61,7 +64,7 @@ export default {
   }
 
   .aside {
-    color: #333;
+    background-color:#2a2a2a;
     text-align: center;
     display: block;
     position: relative;
@@ -69,10 +72,7 @@ export default {
   }
 
   .menu-content {
-    margin: 10px;
-    background-color: #f4f5f9;
     height: 100%;
-
   }
 
   .main {
@@ -82,7 +82,7 @@ export default {
   }
 
   .main-content {
-    margin: 10px 10px 10px 0px;
+
     background-color: #f4f5f9;
 
     padding-bottom: 0px;

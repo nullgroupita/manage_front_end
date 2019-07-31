@@ -55,9 +55,7 @@ async function login (params) {
 
 async function getLoginUserInformation () {
   try {
-    let userId = cookies.get(USER_INFO).id
-    // const response = await axios.get('/employees/0')
-    const response = await axios.get(`/employees/${userId}`)
+    const response = await axios.get(`/current-user`)
     return response.data.data
   } catch (e) {
     console.log(e)

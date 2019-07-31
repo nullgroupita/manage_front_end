@@ -30,7 +30,8 @@
         </el-table-column>
         <el-table-column label="容量" sortable prop="capacity" align="center">
           <template slot-scope="scope">
-            <span>{{scope.row.capacity}}</span>
+            <input type="number" v-if="editRowId===scope.row.id" v-model="scope.row.capacity" />
+            <span v-else>{{scope.row.capacity}}</span>
           </template>
         </el-table-column>
         <el-table-column align="right" width="250">
@@ -38,8 +39,9 @@
             <el-input v-model="search" placeholder="请输入搜索内容" @change="filterList"></el-input>
           </template>
           <template slot-scope="scope">
-            <el-button v-if="scope.row.status === 0" type="danger" size="small" @click="freezeParkingLot(scope.row)">冻结</el-button>
-            <el-button type="primary" size="small" @click="modifyParkingLot(scope.row)">修改</el-button>
+<!--            <el-button v-if="scope.row.status === 0" type="danger" size="small" @click="freezeParkingLot(scope.row)">冻结</el-button>-->
+            <el-button size="small" v-if="editRowId === scope.row.id" @click="saveParkingLot(scope.row)">保存</el-button>
+            <el-button type="primary" size="small" v-else @click="modifyParkingLot(scope.row)">修改</el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -48,6 +50,7 @@
                      :page-sizes="[10,20, 100, 200, 500]" :page-size="pageable.pageSize"
                      layout="total, sizes, prev, pager, next, jumper" :total="totalCount">
       </el-pagination>
+      <ParkingLotDialog v-if="dialogVisible" @showDialog="handleDialog"></ParkingLotDialog>
     </el-row>
   </el-row>
 </template>
@@ -56,8 +59,12 @@
 import api from '../api'
 import cookies from 'vue-cookies'
 import {CHANGE_ACTIVE_MENU, IN_ACTIVE_EMPLOYEE, USER_INFO} from '../common/constants'
+import ParkingLotDialog from './ParkingLotDialog'
 
 export default {
+  components: {
+    ParkingLotDialog
+  },
   data () {
     return {
       allParkingLots: [],
@@ -74,7 +81,9 @@ export default {
         pageSize: 10
       },
       totalCount: 0,
-      search: ''
+      search: '',
+      dialogVisible: false,
+      editRowId: ''
     }
   },
   methods: {
@@ -92,10 +101,10 @@ export default {
       }
     },
     modifyParkingLot (parkingLot) {
-      this.$router.push({name: 'updateParkingLot', params: {data: parkingLot}})
+      this.editRowId = parkingLot.id
     },
     addParkingLot () {
-      this.$router.push('add-parking-lot')
+      this.dialogVisible = true
     },
     handleSizeChange (val) {
       this.pageable.pageSize = val
@@ -111,6 +120,20 @@ export default {
       )))
       this.totalCount = filterResult.length
       this.displayParkingLots = filterResult.splice((this.pageable.page - 1) * this.pageable.pageSize, this.pageable.pageSize)
+    },
+    handleDialog (visible) {
+      this.dialogVisible = visible
+      this.getParkingLots()
+    },
+    async saveParkingLot (parkingLot) {
+      let response = await api.updateParkingLot(parkingLot)
+      if (response.retCode === 200) {
+        this.$alert('修改成功')
+        this.getParkingLots()
+      } else {
+        this.$alert('修改失败，请检查后重试')
+      }
+      this.editRowId = ''
     }
   },
   mounted () {
@@ -123,13 +146,6 @@ export default {
 </script>
 
 <style scoped>
-  .search-bar {
-    text-align: left;
-    padding: 10px;
-    background-color: #FFFFFF;
-    margin-top: 5px;
-  }
-
   .nav-bar {
     background-color: #FFFFFF;
     text-align: left;
@@ -142,9 +158,4 @@ export default {
     position: fixed;
     bottom: 45px;
   }
-
-  .search-input {
-    padding-left: 15px;
-  }
-
 </style>

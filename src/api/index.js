@@ -124,7 +124,7 @@ async function getEmployeesForQuery (params) {
 async function updateEmployeeById (params) {
   try {
     let userId = cookies.get(USER_INFO).id
-    const response = await axios.patch(`/employees/${userId}`, params)
+    const response = await axios.put(`/employees/${userId}`, params)
     return response.data
   } catch (e) {
     console.log(e)
@@ -154,7 +154,7 @@ async function createEmployee (params) {
   try {
     let employee = JSON.parse(JSON.stringify(params))
     employee.password = md5(employee.password)
-    let response = await axios.post(`/employees`, params)
+    let response = await axios.post(`/employees`, employee)
     return response.data
   } catch (e) {
     console.log(e)

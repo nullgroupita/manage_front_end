@@ -67,6 +67,8 @@ export const ACTIVE_EMPLOYEE = 0
 
 export const MANAGER_ROLE_CODE = 1
 
+export const ADMIN_ROLE_CODE = 2
+
 export const GET_MANAGER_PARKINGLOTS = 'get_manager_parkinglots'
 
 export const SHOW_ALL_PARKING_LOTS_STATUS = 0

@@ -31,20 +31,26 @@
 
 <script>
 import Avatar from 'vue-avatar'
+import api from '../api/index'
+
 export default {
   data () {
     return {
       title: 'Easy Parking 管理平台',
-      username: 'Username'
-    }
-  },
-  methods: {
-    logout () {
-      this.$alert('请到login页面')
+      username: ''
     }
   },
   components: {
     Avatar
+  },
+  methods: {
+    async checkUserRole () {
+      let response = await api.getLoginUserInformation()
+      this.username = response.name
+    }
+  },
+  mounted () {
+    this.checkUserRole()
   }
 }
 </script>

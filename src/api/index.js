@@ -27,9 +27,9 @@ axios.interceptors.request.use(
 
 axios.interceptors.response.use(
   response => {
-    if (response.data.retCode === 501) {
-      router.push('login')
-      Message.error('请先登录')
+    if (response.data.retCode === 501 || response.data.retCode === 502) {
+      router.push('/')
+      Message.error('没有权限, 请先登录')
     }
     return response
   },

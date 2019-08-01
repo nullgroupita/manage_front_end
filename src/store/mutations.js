@@ -18,8 +18,9 @@ const mutations = {
     state.user['id'] = data.id
     state.user['userName'] = data.telephone
     state.user['name'] = data.name
-    cookies.set(USER_INFO, state.user),
+    cookies.set(USER_INFO, state.user)
     state.user['parkingLots'] = data.parkingLots
+    state.user['role'] = data.role
   },
   [GET_ALL_ORDERS] (state, data) {
     state.orders = data
@@ -28,7 +29,6 @@ const mutations = {
     state.user['parkingLots'] = data
   },
   [GET_PARKING_LOTS_WITH_PARKING_BOY] (state, data) {
-    console.log(data)
     state.parkingLotsWithParkIngBoys = data
   }
 }

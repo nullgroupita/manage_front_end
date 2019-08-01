@@ -103,10 +103,12 @@ export default {
   },
   methods: {
     async getEmployees () {
+      this.$loading({fullscreen: true})
       let response = await api.getEmployees()
       this.allEmployees = response.filter(val => val.role !== 2)
       this.displayEmployees = JSON.parse(JSON.stringify(this.allEmployees)).splice((this.pageable.page - 1) * this.pageable.pageSize, this.pageable.pageSize)
       this.totalCount = this.allEmployees.length
+      this.$loading({fullscreen: true}).close()
     },
     filterList (val) {
       let filterResult = JSON.parse(JSON.stringify(this.allEmployees.filter(item => item.name.toUpperCase().includes(val.toUpperCase()))))
@@ -130,8 +132,10 @@ export default {
       this.editRowIndex = row.id
     },
     async saveUpdate (row) {
+      this.$loading({fullscreen: true})
       this.editRowIndex = ''
       let response = await api.updateEmployeeByAdmin(row.id, row)
+      this.$loading({fullscreen: true}).close()
       if (response.retCode === 200) {
         this.$alert('修改成功')
       } else {

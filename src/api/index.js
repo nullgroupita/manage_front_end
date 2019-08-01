@@ -152,9 +152,7 @@ async function getManagers () {
 
 async function createEmployee (params) {
   try {
-    let employee = JSON.parse(JSON.stringify(params))
-    employee.password = md5(employee.password)
-    let response = await axios.post(`/employees`, employee)
+    let response = await axios.post(`/employees`, params)
     return response.data
   } catch (e) {
     console.log(e)

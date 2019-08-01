@@ -3,6 +3,7 @@ import Router from 'vue-router'
 import Home from '../views/Home'
 import Login from '../views/Login'
 import ParkingLotMaintenance from '../components/ParkingLotMaintenance'
+import OrderManagement from '../components/OrderMaintenance'
 import ParkingLotsStatus from '../components/ParkingLotsStatus'
 import ParkingClerksMaintenance from '../components/ParkingClerksMaintenance'
 import EmployeeMaintenance from '../components/EmployeeMaintenance'
@@ -40,6 +41,11 @@ export default new Router({
           path: '/employee-list',
           name: 'EmployeeMaintenance',
           component: EmployeeMaintenance
+        },
+        {
+          path: '/orders-maintenance',
+          name: 'manageOrder',
+          component: OrderManagement
         }
       ]
     }

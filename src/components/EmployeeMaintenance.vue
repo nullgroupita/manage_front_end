@@ -1,5 +1,5 @@
 <template>
-  <el-row>
+  <el-row style="margin-top: 3%">
     <el-row class="nav-bar">
       <el-col :span="2" style="margin-top: 5px; font-weight: bold">用户列表</el-col>
       <el-col :span="18">
@@ -63,11 +63,15 @@
           </template>
         </el-table-column>
       </el-table>
+      <el-row>
+        <el-col :offset="17">
       <el-pagination class="table-nav" @size-change="handleSizeChange" @current-change="handleCurrentChange"
                      :current-page="pageable.page" background
                      :page-sizes="[10,20, 100, 200, 500]" :page-size="pageable.pageSize"
                      layout="total, sizes, prev, pager, next, jumper" :total="totalCount">
       </el-pagination>
+        </el-col>
+      </el-row>
       <EmployeeDialog v-if="dialogVisible" @showDialog="handleDialog"></EmployeeDialog>
     </el-row>
   </el-row>

@@ -55,10 +55,22 @@ export const CHANGE_ACTIVE_MENU = 'change_active_menu'
 
 export const GET_USER_INFORMATION = 'get_user_information'
 
+export const GET_PARKING_LOTS_WITH_PARKING_BOY = 'getParkingLotsWithParkingBoy'
+
 export const USER_INFO = 'userInfo'
+
+export const GET_ALL_ORDERS = 'get_all_orders'
 
 export const IN_ACTIVE_EMPLOYEE = 1
 
 export const ACTIVE_EMPLOYEE = 0
 
 export const MANAGER_ROLE_CODE = 1
+
+export const GET_MANAGER_PARKINGLOTS = 'get_manager_parkinglots'
+
+export const SHOW_ALL_PARKING_LOTS_STATUS = 0
+
+export const SHOW_FULL_PARKING_LOTS_STATUS = 1
+
+export const SHOW_AVAILABLE_PARKING_LOTS_STATUS = 2

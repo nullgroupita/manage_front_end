@@ -170,6 +170,73 @@ async function updateEmployeeByAdmin (employeeId, params) {
   }
 }
 
+async function assignOrderToClerk (clerkId, params) {
+  try {
+    const response = await axios.patch(`/employees/${clerkId}/parking-lots`, params)
+    return response.data
+  } catch (e) {
+    console.log(e)
+  }
+}
+
+async function getParkingLotByClerk (clerkId) {
+  try {
+    const response = await axios.get(`/employees/${clerkId}/parking-lots`)
+    return response.data
+  } catch (e) {
+    console.log(e)
+  }
+}
+
+async function getAllOrders (managerId) {
+  try {
+    const response = await axios.get(`/employees/${managerId}/orders`)
+    return response.data
+  } catch (e) {
+    console.log(e)
+  }
+}
+
+async function getUnReceiptOrders (managerId) {
+  try {
+    const response = await axios.get(`/orders`)
+    const orders = response.data.data.map(item => {
+      item.type = item.status === 0 ? 0 : 1
+      return item
+    })
+    return orders
+  } catch (e) {
+    console.log(e)
+  }
+}
+
+async function sendParkingOrder (obj) {
+  try {
+    const response = await axios.patch(`/orders`, obj)
+    return response.data
+  } catch (e) {
+    console.log(e)
+  }
+}
+
+async function sendFetchingOrder (obj) {
+  try {
+    const response = await axios.patch(`/orders`, obj)
+    return response.data
+  } catch (e) {
+    console.log(e)
+  }
+}
+
+async function getAllParkingLotsWithParkingBoys (employeeId) {
+  try {
+    const response = await axios.get(`/employees/${employeeId}/parking-lots/1`)
+    return response.data
+  } catch (e) {
+    console.log(e)
+  }
+}
+
 const api = {
   login,
   getLoginUserInformation,
@@ -183,7 +250,14 @@ const api = {
   getEmployeesForQuery,
   updateEmployee,
   updateEmployeeById,
-  updateEmployeeByAdmin
+  updateEmployeeByAdmin,
+  assignOrderToClerk,
+  getParkingLotByClerk,
+  getAllOrders,
+  getUnReceiptOrders,
+  sendParkingOrder,
+  sendFetchingOrder,
+  getAllParkingLotsWithParkingBoys
 }
 
 export default api

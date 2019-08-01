@@ -9,167 +9,93 @@
   </el-row>
   <el-row style=" padding-top:2%;padding-bottom:2%;margin-bottom:2%;background-color:#FFFFFF">
     <el-col :span="1" :offset="4">
-      <el-button type="primary">全部停车场</el-button>
+      <el-button type="primary" @click="showAllStatus">全部停车场</el-button>
     </el-col>
     <el-col :span="1" :offset="5">
-      <el-button type="primary">满员停车场</el-button>
+      <el-button type="primary" @click="showFullStatus">满员停车场</el-button>
     </el-col>
     <el-col :span="1" :offset="5">
-      <el-button type="primary">可用停车场</el-button>
+      <el-button type="primary" @click="showAvaliableStatus">可用停车场</el-button>
     </el-col>
   </el-row>
-  <el-divider></el-divider>
-  <el-row style="margin-top: 3%;background-color:rgb(255,255,255)">
-    <el-col :span="3" :offset="0">
-      <div>
-        <p>停车场</p>
-      </div>
-    </el-col>
-  </el-row>
-  <el-row>
-    <el-divider></el-divider>
-  </el-row>
-  <el-row :gutter="20" style="padding-top: 3%">
-    <el-col :span="8" :offset="0">
+  <el-row :gutter="20" style="" >
+    <el-col style="margin-bottom: 3%" v-for="(item, index) in parkingLotsWithParkingBoys" :key="index" :span="8" :offset="0">
       <el-card shadow="hover">
         <div style="text-align: left" slot="header" class="clearfix">
-          <span>停车场A</span>
+          <span>{{item.name}}</span>
         </div>
-        <div class="text item">
+        <div class="text item" >
           <el-row>
             <el-col :span="14">
-              <el-progress type="circle" :percentage="26" :show-text="true" :format="fuckit">sss</el-progress>
+              <el-progress type="circle"  :percentage="(item.capacity - item.nowAvailable)*100 / item.capacity" :show-text="true" :format="getParkingLotsStatus">sss</el-progress>
               <p>停车情况</p>
             </el-col>
             <el-col :span="10">
-              <p>停车员: 张三</p>
+              <p v-for="(boy, i) in item.parkingBoys" :key="i">停车员: {{boy.name}}</p>
+<!--              <p>停车员: 张三</p>-->
             </el-col>
           </el-row>
         </div>
       </el-card>
     </el-col>
-    <el-col :span="8" :offset="0">
-      <el-card shadow="hover">
-        <div style="text-align: left" slot="header" class="clearfix">
-          <span>停车场B</span>
-        </div>
-        <div class="text item">
-          <el-row>
-            <el-col :span="10">
-              <el-progress type="circle" :percentage="26" :show-text="true" :format="fuckit">sss</el-progress>
-              <p>停车情况</p>
-            </el-col>
-            <el-col :span="10">
-              <p>停车员: 张三</p>
-            </el-col>
-          </el-row>
-        </div>
-      </el-card>
-    </el-col>
-    <el-col :span="8" :offset="0">
-      <el-card shadow="hover">
-        <div style="text-align: left" slot="header" class="clearfix">
-          <span>停车场C</span>
-        </div>
-        <div class="text item">
-          <el-row>
-            <el-col :span="10">
-              <el-progress type="circle" :percentage="26" :show-text="true" :format="fuckit">sss</el-progress>
-              <p>停车情况</p>
-            </el-col>
-            <el-col :span="10">
-              <p>停车员: 张三</p>
-            </el-col>
-          </el-row>
-        </div>
-      </el-card>
-    </el-col>
-  </el-row>
-  <el-row :gutter="0" style="padding-top: 3%">
-    <el-col :span="6" :offset="2">
-      <el-card shadow="hover">
-        <div style="text-align: left" slot="header" class="clearfix">
-          <span>停车场D</span>
-        </div>
-        <div class="text item">
-          <el-row>
-            <el-col :span="10">
-              <el-progress type="circle" :percentage="26" :show-text="true" :format="fuckit">sss</el-progress>
-              <p>停车情况</p>
-            </el-col>
-            <el-col :span="10">
-              <p>停车员: 张三</p>
-            </el-col>
-          </el-row>
-        </div>
-      </el-card>
-    </el-col>
-    <el-col :span="6" :offset="1">
-      <el-card shadow="hover">
-        <div style="text-align: left" slot="header" class="clearfix">
-          <span>停车场E</span>
-        </div>
-        <div class="text item">
-          <el-row>
-            <el-col :span="10">
-              <el-progress type="circle" :percentage="26" :show-text="true" :format="fuckit">sss</el-progress>
-              <p>停车情况</p>
-            </el-col>
-            <el-col :span="10">
-              <p>停车员: 张三</p>
-            </el-col>
-          </el-row>
-        </div>
-      </el-card>
-    </el-col>
-    <el-col :span="6" :offset="1">
-      <el-card shadow="hover">
-        <div style="text-align: left" slot="header" class="clearfix">
-          <span>停车场F</span>
-        </div>
-        <div class="text item">
-          <el-row>
-            <el-col :span="12">
-              <el-progress type="circle" :percentage="26" :show-text="true" :format="fuckit">sss</el-progress>
-              <p>停车情况</p>
-            </el-col>
-            <el-col :span="12">
-              <p>停车员: 张三</p>
-            </el-col>
-          </el-row>
-        </div>
-      </el-card>
-    </el-col>
-  </el-row>
-  <el-row style="padding-top: 3%;padding-bottom: 3%">
-    <el-col :offset="9">
-      <el-pagination
-        background
-        :pager-count="3"
-        layout="prev, pager, next"
-        :total="1000">
-      </el-pagination>
-    </el-col>
+
   </el-row>
   </div>
 </template>
 <script>
 import Menu from '../components/Menu'
 import Header from '../components/Header'
+import api from '../api'
+import {
+  GET_PARKING_LOTS_WITH_PARKING_BOY,
+  SHOW_ALL_PARKING_LOTS_STATUS, SHOW_AVAILABLE_PARKING_LOTS_STATUS,
+  SHOW_FULL_PARKING_LOTS_STATUS
+} from '../common/constants'
 
 export default {
   name: 'ParkingLotsStatus',
-  data () {},
+  data () {
+    return {
+      filterStatus: SHOW_ALL_PARKING_LOTS_STATUS
+    }
+  },
   methods: {
-    fuckit (percentage) {
-      return Math.floor(percentage / 100 * 10) + '/10'
+    async getParkingLots () {
+      const response = await api.getAllParkingLotsWithParkingBoys(this.$store.state.user.id)
+      console.log(response)
+    },
+    showAllStatus () {
+      this.filterStatus = SHOW_ALL_PARKING_LOTS_STATUS
+      console.log(this.filterStatus)
+    },
+    showFullStatus () {
+      this.filterStatus = SHOW_FULL_PARKING_LOTS_STATUS
+    },
+    showAvaliableStatus () {
+      this.filterStatus = SHOW_AVAILABLE_PARKING_LOTS_STATUS
+    },
+    getParkingLotsStatus (percentage) {
+      let x = this.$store.state.parkingLotsWithParkIngBoys.filter(v => ((v.capacity - v.nowAvailable) * 100 / v.capacity) === percentage)[0]
+      console.log(this.$store.state.parkingLotsWithParkIngBoys.filter(v => ((v.capacity - v.nowAvailable) * 100 / v.capacity) === percentage)[0].nowAvailable)
+      return x.capacity - x.nowAvailable + '/' + x.capacity
     }
   },
   components: {
     Menu, Header
   },
-  mounted () {
-    console.log(this.$router.valueOf())
+  mounted: function () {
+    this.$store.dispatch(GET_PARKING_LOTS_WITH_PARKING_BOY, this.$store.state.user.id)
+  },
+  computed: {
+    parkingLotsWithParkingBoys: function () {
+      if (this.filterStatus === SHOW_FULL_PARKING_LOTS_STATUS) {
+        return this.$store.state.parkingLotsWithParkIngBoys.filter(v => v.nowAvailable === 0)
+      } else if (this.filterStatus === SHOW_AVAILABLE_PARKING_LOTS_STATUS) {
+        return this.$store.state.parkingLotsWithParkIngBoys.filter(v => v.nowAvailable !== 0)
+      } else {
+        return this.$store.state.parkingLotsWithParkIngBoys
+      }
+    }
   }
 }
 </script>

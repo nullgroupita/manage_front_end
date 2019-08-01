@@ -1,11 +1,29 @@
 import api from '../api/index'
-import {GET_USER_INFORMATION} from '../common/constants'
+import {GET_USER_INFORMATION, GET_ALL_ORDERS, GET_MANAGER_PARKINGLOTS, GET_PARKING_LOTS_WITH_PARKING_BOY} from '../common/constants'
 
 const actions = {
   async [GET_USER_INFORMATION] (context) {
     api.getLoginUserInformation().then(response => {
       context.commit(GET_USER_INFORMATION, response)
     })
+  },
+  async [GET_ALL_ORDERS] (context, id) {
+    api.getAllOrders(id).then(response => {
+      api.getUnReceiptOrders().then(function (result) {
+        result.push(...response.data)
+        console.log(result)
+        context.commit(GET_ALL_ORDERS, result)
+      })
+    })
+  },
+  async [GET_MANAGER_PARKINGLOTS] (context, managerId) {
+    api.getParkingLotsByManagerId(managerId).then(response => {
+      context.commit(GET_MANAGER_PARKINGLOTS, response.pageContent)
+    })
+  },
+  async [GET_PARKING_LOTS_WITH_PARKING_BOY] (context, id) {
+    const response = await api.getAllParkingLotsWithParkingBoys(id)
+    context.commit(GET_PARKING_LOTS_WITH_PARKING_BOY, response.data)
   }
 }
 export default actions

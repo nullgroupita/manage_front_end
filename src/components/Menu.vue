@@ -20,24 +20,12 @@
         <span class="icon-margin"><img src="../assets/img/list.svg" class="menu-icon"/></span>
         <span slot="title">&nbsp;&nbsp;订单管理</span>
       </el-menu-item>
-      <el-menu-item index="#">
-        <span class="icon-margin"><img src="../assets/img/customer.svg" class="menu-icon"/></span>
-        <span slot="title">&nbsp;&nbsp;客户管理</span>
-      </el-menu-item>
     </el-menu>
 </template>
 
 <script>
 
 export default {
-  data () {
-  },
-  methods: {
-  },
-  computed: {
-  },
-  mounted () {
-  }
 }
 </script>
 

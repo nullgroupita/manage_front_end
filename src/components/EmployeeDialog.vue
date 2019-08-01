@@ -100,15 +100,19 @@ export default {
             this.$alert('两次密码不一致')
             return false
           }
-          let response = await api.createEmployee(this.employee)
-          if (response.retCode === 200) {
-            this.$message.success('新增成功')
-            this.$refs['addForm'].resetFields()
-            this.$emit('showDialog', false)
-            this.$router.push('employee-list')
-          } else {
-            this.$message.error('添加失败，请重试')
-          }
+          await api.createEmployee(this.employee)
+          this.$message.success('新增成功')
+          this.$refs['addForm'].resetFields()
+          this.$emit('showDialog', false)
+          this.$router.push('employee-list')
+          // if (response.retCode === 200) {
+          //   this.$message.success('新增成功')
+          //   this.$refs['addForm'].resetFields()
+          //   this.$emit('showDialog', false)
+          //   this.$router.push('employee-list')
+          // } else {
+          //   this.$message.error('添加失败，请重试')
+          // }
         } else {
           return false
         }

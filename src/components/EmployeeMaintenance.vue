@@ -117,9 +117,11 @@ export default {
     },
     handleSizeChange (val) {
       this.pageable.pageSize = val
+      this.displayEmployees = JSON.parse(JSON.stringify(this.allEmployees)).splice((this.pageable.page - 1) * this.pageable.pageSize, this.pageable.pageSize)
     },
     handleCurrentChange (val) {
       this.pageable.page = val
+      this.displayEmployees = JSON.parse(JSON.stringify(this.allEmployees)).splice((this.pageable.page - 1) * this.pageable.pageSize, this.pageable.pageSize)
     },
     insertDialog () {
       this.dialogVisible = true

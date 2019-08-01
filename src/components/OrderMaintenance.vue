@@ -12,15 +12,17 @@
       </template>
     </el-table-column>
     <el-table-column label="状态" width="300" align="center"
-      :filters="[{text: '已接单', value: '1'}, {text: '未接单', value: '2'}]"
-      :filter-method="filterHandler">
+                     :filters="[{text: '已接单', value: '1'}, {text: '未接单', value: '2'}]"
+                     :filter-method="filterHandler">
       <template slot-scope="scope">
         <span>{{(scope.row.status===0||(scope.row.status===3 && scope.row.type === 1))?"未接单":"已接单"}}</span>
       </template>
     </el-table-column>
     <el-table-column prop="type" label="操作" width="300" align="center">
       <template slot-scope="scope">
-        <el-button size="mini" type="primary" @click="assignOrder(scope.row)" v-if="scope.row.status===0||(scope.row.status===3 && scope.row.type === 1)">指派</el-button>
+        <el-button size="mini" type="primary" @click="assignOrder(scope.row)"
+                   v-if="scope.row.status===0||(scope.row.status===3 && scope.row.type === 1)">指派
+        </el-button>
         <el-dialog title="指派停车订单" :visible.sync="dialogParkingFormVisible">
           <el-form>
             <el-form-item label="接单职员" :label-width="formLabelWidth">
@@ -49,24 +51,24 @@
             <el-button type="primary" @click="sendParkingOrder">确 定</el-button>
           </div>
         </el-dialog>
-            <el-dialog title="指派取车订单" :visible.sync="dialogFetchingFormVisible">
-                <el-form>
-                  <el-form-item label="接单职员" :label-width="formLabelWidth">
-                    <el-select v-model="selectedBoy"  placeholder="请选择停车员">
-                      <el-option
-                        v-for="item in parkingClerks"
-                        :key="item.id"
-                        :label="item.name"
-                        :value="item.id">
-                      </el-option>
-                    </el-select>
-                  </el-form-item>
-                </el-form>
-                <div slot="footer" class="dialog-footer">
-                  <el-button @click="dialogFetchingFormVisible = false">取 消</el-button>
-                  <el-button type="primary" @click="sendFetchingOrder">确 定</el-button>
-                </div>
-                </el-dialog>
+        <el-dialog title="指派取车订单" :visible.sync="dialogFetchingFormVisible">
+          <el-form>
+            <el-form-item label="接单职员" :label-width="formLabelWidth">
+              <el-select v-model="selectedBoy" placeholder="请选择停车员">
+                <el-option
+                  v-for="item in parkingClerks"
+                  :key="item.id"
+                  :label="item.name"
+                  :value="item.id">
+                </el-option>
+              </el-select>
+            </el-form-item>
+          </el-form>
+          <div slot="footer" class="dialog-footer">
+            <el-button @click="dialogFetchingFormVisible = false">取 消</el-button>
+            <el-button type="primary" @click="sendFetchingOrder">确 定</el-button>
+          </div>
+        </el-dialog>
       </template>
     </el-table-column>
   </el-table>
@@ -76,6 +78,7 @@
 import {USER_INFO} from '../common/constants'
 import cookies from 'vue-cookies'
 import api from '../api'
+
 export default {
   name: 'OrderManagement',
   data () {
@@ -98,26 +101,26 @@ export default {
       const property = column['property']
       return row[property] === value
     },
-    sendParkingOrder () {
+    async sendParkingOrder () {
       let order = this.assignRowOrder
       let obj = {
         orderId: order.id,
         parkingBoyId: this.selectedBoy,
         parkingLotId: this.selectedParkingLot
       }
-      let response = api.sendParkingOrder(obj)
+      let response = await api.sendParkingOrder(obj)
       if (response.retCode === 200) {
         this.$message.success('指派停车订单成功')
       }
       this.dialogParkingFormVisible = false
     },
-    sendFetchingOrder () {
+    async sendFetchingOrder () {
       let order = this.assignRowOrder
       let obj = {
         orderId: order.id,
         parkingBoyId: this.selectedBoy
       }
-      let response = api.sendFetchingOrder(obj)
+      let response = await api.sendFetchingOrder(obj)
       if (response.retCode === 200) {
         this.$message.success('指派取车订单成功')
       }
